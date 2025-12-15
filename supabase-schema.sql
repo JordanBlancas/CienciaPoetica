@@ -1,4 +1,4 @@
--- LMS Moderno - Esquema de Base de Datos Supabase
+-- Ciencia Poética - Esquema de Base de Datos Supabase
 -- Ejecutar este script en el editor SQL de Supabase
 
 -- Crear tabla de usuarios extendida

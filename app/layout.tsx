@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'LMS Moderno - Plataforma de Aprendizaje',
+  title: 'Ciencia Poética - Plataforma de Aprendizaje',
   description: 'Una plataforma moderna de gestión de aprendizaje construida con Next.js y Supabase',
 }
 

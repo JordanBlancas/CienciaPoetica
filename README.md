@@ -1,4 +1,4 @@
-# LMS Moderno - Plataforma de Aprendizaje
+# Ciencia Poética - Plataforma de Aprendizaje
 
 Una plataforma moderna de gestión de aprendizaje (LMS) construida con Next.js, Supabase y Tailwind CSS. Similar a WordPress + Tutor LMS pero con un stack tecnológico moderno y desplegable en Vercel.
 
