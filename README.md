@@ -11,7 +11,7 @@ Una plataforma moderna de gestión de aprendizaje (LMS) construida con Next.js, 
 - **CRUD Completo**: Gestión de cursos, lecciones y usuarios
 - **Panel de Usuario**: Dashboard personalizado con progreso de aprendizaje
 - **Seguridad**: Row Level Security (RLS) en Supabase
-- **Despliegue Fácil**: Configurado para Vercel con GitHub Actions
+- **Despliegue Fácil**: Configurado para Vercel con GitHub Actions.
 
 ## 🛠️ Stack Tecnológico
 
