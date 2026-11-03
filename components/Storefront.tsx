@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { ArrowRight, BookOpen, Clapperboard, GraduationCap, Mic2, ShoppingBag, X } from 'lucide-react'
+import { Brain, BookOpen, Clapperboard, Facebook, Globe2, GraduationCap, Instagram, Linkedin, Mic2, ShoppingBag, X } from 'lucide-react'
 import { Course, supabase } from '@/lib/supabaseClient'
 import Navbar from '@/components/Navbar'
 
@@ -202,7 +202,6 @@ export default function Storefront() {
               >
                 <Icon className="h-4 w-4 shrink-0 text-[var(--evergreen)]" strokeWidth={1.9} />
                 <span className="text-xs font-semibold text-slate-700 sm:text-sm">{title}</span>
-                <ArrowRight className="ml-auto h-3.5 w-3.5 shrink-0 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-[var(--evergreen)] sm:hidden" />
               </button>
             ))}
           </div>
@@ -249,14 +248,24 @@ export default function Storefront() {
           </figure>
         </section>
 
-        <section className="grid gap-3 border-t border-slate-300/55 py-8 sm:grid-cols-[0.7fr_1.3fr] sm:gap-8 sm:py-10">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--evergreen)]">Quién está detrás</p>
-            <h2 className="mt-2 font-serif text-2xl font-semibold tracking-normal text-slate-800">Jordan Blancas</h2>
+        <section className="grid gap-5 border-t border-slate-300/55 py-8 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-6 sm:py-10">
+          <div aria-label="Retrato pendiente de Jordan Blancas" className="flex h-16 w-16 items-center justify-center rounded-full border border-white/80 bg-gradient-to-br from-cyan-100 via-white/75 to-rose-100 text-lg font-semibold text-[var(--evergreen)] shadow-[0_12px_30px_-18px_rgba(27,43,61,0.55)] backdrop-blur-xl">
+            JB
           </div>
-          <p className="max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-            Soy el creador de Ciencia Poética. Este espacio reúne mi interés por las matemáticas y la ingeniería, y la convicción de que el conocimiento también puede ser una forma de expresión y belleza.
-          </p>
+          <div className="max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--evergreen)]">La curiosidad también tiene autor</p>
+            <h2 className="mt-1 font-serif text-2xl font-semibold tracking-normal text-slate-800">Jordan Blancas</h2>
+            <p className="mt-2 text-sm leading-7 text-slate-600 sm:text-base">
+              Mi formación en matemáticas e ingeniería me lleva a buscar conexiones entre el rigor y la imaginación. Ciencia Poética es el espacio donde quiero convertir esas conexiones en cursos, conversaciones e ideas que inviten a seguir preguntando.
+            </p>
+          </div>
+          <nav aria-label="Redes sociales de Jordan Blancas" className="flex flex-wrap gap-2 sm:justify-end">
+            <SocialLink href="https://www.facebook.com/jordanblancas" label="Facebook"><Facebook /></SocialLink>
+            <SocialLink href="https://www.instagram.com/jordanblancas" label="Instagram"><Instagram /></SocialLink>
+            <SocialLink href="https://www.linkedin.com/in/jordanblancas/" label="LinkedIn"><Linkedin /></SocialLink>
+            <SocialLink href="https://jordanblancas.com" label="Sitio web"><Globe2 /></SocialLink>
+            <SocialLink href="https://polimatas.club/jordanblancas" label="Polímatas Club"><Brain /></SocialLink>
+          </nav>
         </section>
 
       </main>
@@ -292,7 +301,7 @@ export default function Storefront() {
                     {selectedCourse && <p className="text-xl font-semibold text-[var(--evergreen)]">{formatPrice(selectedCourse.price, selectedCourse.currency || 'USD')}</p>}
                     {selectedProduct && <p className="text-xl font-semibold text-[var(--evergreen)]">{formatPrice(selectedProduct.price, selectedProduct.currency)}</p>}
                     <p className="mt-3 whitespace-pre-line text-sm leading-6 text-slate-600">{selectedItem.description || 'Más información próximamente.'}</p>
-                    {selectedMedia && selectedMedia.youtube_url && !youtubeEmbedUrl(selectedMedia.youtube_url) && <a href={selectedMedia.youtube_url} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--evergreen)] px-4 py-2.5 text-sm font-semibold text-white">Ver en YouTube <ArrowRight className="h-4 w-4" /></a>}
+                    {selectedMedia && selectedMedia.youtube_url && !youtubeEmbedUrl(selectedMedia.youtube_url) && <a href={selectedMedia.youtube_url} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--evergreen)] px-4 py-2.5 text-sm font-semibold text-white">Ver en YouTube</a>}
                     {selectedCourse && (selectedCourse.price > 0 ? (
                       <button type="button" disabled={busy || !('stripe_price_id' in selectedCourse) || !selectedCourse.stripe_price_id} onClick={() => startCheckout('course', selectedCourse.id)} className="mt-5 min-h-11 w-full rounded-full bg-[var(--evergreen)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#285d58] disabled:cursor-not-allowed disabled:opacity-50">
                         {busy ? 'Abriendo Stripe…' : selectedCourse.stripe_price_id ? 'Comprar curso con Stripe' : 'Pago en preparación'}
@@ -328,18 +337,32 @@ function InlineItemGrid({ items, empty, onSelect, type }: { items: SelectedItem[
             <div className="relative min-h-28 w-28 shrink-0 bg-gradient-to-br from-cyan-100/80 via-white/55 to-rose-100/70 sm:w-40">
               {image ? <img src={image} alt={item.title} className="absolute inset-0 h-full w-full object-cover" /> : <div className="flex h-full items-center justify-center text-[var(--evergreen)]/55">{type === 'course' ? <GraduationCap className="h-8 w-8" /> : type === 'product' ? <ShoppingBag className="h-8 w-8" /> : <Clapperboard className="h-8 w-8" />}</div>}
             </div>
-            <span className="flex min-w-0 flex-1 items-center justify-between gap-3 p-3 sm:p-4">
+            <span className="flex min-w-0 flex-1 items-center gap-3 p-3 sm:p-4">
               <span className="min-w-0">
                 <span className="block line-clamp-2 font-serif text-base font-semibold leading-snug text-slate-800 sm:text-lg">{item.title}</span>
                 {item.description && <span className="mt-1 block line-clamp-2 text-xs leading-5 text-slate-500 sm:text-sm">{item.description}</span>}
                 {price && <span className="mt-2 block text-sm font-semibold text-[var(--evergreen)]">{price}</span>}
                 {mediaItem && <span className="mt-2 block text-xs font-medium text-[var(--evergreen)]">{mediaItem.media_type === 'podcast' ? 'Escuchar conversación' : 'Ver video'}</span>}
               </span>
-              <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:translate-x-1 group-hover:text-[var(--evergreen)]" />
             </span>
           </button>
         )
       })}
     </div>
+  )
+}
+
+function SocialLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={label}
+      title={label}
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-white/80 bg-white/55 text-slate-600 shadow-sm backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/85 hover:text-[var(--evergreen)]"
+    >
+      {children}
+    </a>
   )
 }

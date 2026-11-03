@@ -20,7 +20,7 @@ export default function AuthShell({ children }: { children: React.ReactNode }) {
           Inicio
         </Link>
       </header>
-      <main className="relative mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-8">
+      <main className="relative mx-auto flex w-full max-w-md flex-1 flex-col justify-start py-4 sm:justify-center sm:py-8">
         {children}
       </main>
       <footer className="relative py-2 text-center text-xs text-slate-500">

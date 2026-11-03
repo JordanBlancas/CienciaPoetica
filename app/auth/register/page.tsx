@@ -72,7 +72,7 @@ export default function RegisterPage() {
   return (
     <AuthShell>
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center font-serif text-3xl font-semibold tracking-normal text-slate-900">
+        <h2 className="mt-2 text-center font-serif text-3xl font-semibold tracking-normal text-slate-900 sm:mt-6">
           Crear Cuenta
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
@@ -83,7 +83,7 @@ export default function RegisterPage() {
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="mt-5 sm:mx-auto sm:mt-8 sm:w-full sm:max-w-md">
         <div className="glass-panel-strong rounded-3xl px-5 py-8 sm:px-8">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
