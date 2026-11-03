@@ -231,21 +231,31 @@ export default function Storefront() {
           </section>
         )}
 
-        <section className="grid items-center gap-6 py-10 sm:gap-8 sm:py-14 md:grid-cols-[1.05fr_0.95fr] md:py-20">
-          <div className="relative z-[1] max-w-2xl">
+        <section className="relative isolate my-6 overflow-hidden py-10 sm:my-10 sm:py-14 md:my-14 md:min-h-[440px] md:py-20">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-20 top-1/2 h-[112%] w-[94%] -translate-y-1/2 opacity-35 sm:right-[-8%] sm:w-[76%] sm:opacity-45 md:right-[-2%] md:h-[132%] md:w-[58%] md:opacity-60"
+            style={{
+              maskImage: 'radial-gradient(ellipse at 58% 46%, #000 24%, rgba(0,0,0,.86) 44%, rgba(0,0,0,.48) 61%, transparent 80%)',
+              WebkitMaskImage: 'radial-gradient(ellipse at 58% 46%, #000 24%, rgba(0,0,0,.86) 44%, rgba(0,0,0,.48) 61%, transparent 80%)',
+            }}
+          >
+            <Image
+              src="/images/ada-lovelace.png"
+              alt=""
+              fill
+              sizes="(max-width: 768px) 90vw, 58vw"
+              className="object-cover object-[50%_25%]"
+            />
+          </div>
+          <p className="sr-only">Retrato de Ada Lovelace pintado por Margaret Sarah Carpenter en 1836. La obra es de dominio público.</p>
+          <div className="relative z-10 max-w-2xl">
             <h1 className="max-w-[12ch] font-serif text-[2.8rem] font-medium leading-[0.98] tracking-normal text-[#17212b] sm:text-6xl md:text-7xl">Ciencia <span className="italic text-[var(--evergreen)]">Poética</span></h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8">
               Ciencia y matemáticas como formas de expresión. Un lugar para aprender, escuchar ideas y llevar la curiosidad a la vida diaria.
             </p>
             <p className="mt-4 font-serif text-lg italic text-slate-500">Por siempre Ada.</p>
           </div>
-          <figure className="relative mx-auto aspect-[16/10] w-full max-w-[560px] overflow-hidden rounded-[1.75rem] border border-white/70 bg-white/30 shadow-[0_35px_80px_-48px_rgba(27,43,61,0.65)] backdrop-blur-xl md:aspect-[5/4] md:ml-auto">
-            <Image src="/images/ada-lovelace.png" alt="Retrato de Ada Lovelace por Margaret Sarah Carpenter, 1836" fill priority sizes="(max-width: 768px) 100vw, 46vw" className="object-cover object-[50%_25%]" />
-            <figcaption className="absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 rounded-2xl border border-white/80 bg-white/68 px-4 py-3 text-xs text-slate-700 shadow-xl backdrop-blur-2xl sm:inset-x-5 sm:bottom-5">
-              <span><strong className="block text-sm">Ada Lovelace</strong>Margaret Sarah Carpenter · 1836</span>
-              <a href="https://commons.wikimedia.org/wiki/File:Carpenter_portrait_of_Ada_Lovelace_-_detail.png" target="_blank" rel="noreferrer" className="shrink-0 underline decoration-emerald-800/30 underline-offset-4">Dominio público</a>
-            </figcaption>
-          </figure>
         </section>
 
         <section className="grid gap-5 border-t border-slate-300/55 py-8 sm:py-10 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-7">
@@ -258,12 +268,12 @@ export default function Storefront() {
               className="h-16 w-16 shrink-0 rounded-full border border-white/85 object-cover shadow-[0_12px_30px_-18px_rgba(27,43,61,0.55)] sm:h-[4.5rem] sm:w-[4.5rem]"
             />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--evergreen)]">Sobre el creador</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--evergreen)]">Sobre el autor</p>
               <h2 className="mt-1 font-serif text-xl font-semibold tracking-normal text-slate-800 sm:text-2xl">Jordan Blancas</h2>
             </div>
           </div>
           <p className="max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-            Mi formación en matemáticas e ingeniería me enseñó a buscar patrones, hacer preguntas y conectar ideas. En Ciencia Poética comparto ese recorrido mediante cursos, conversaciones y proyectos donde el rigor también deja espacio a la imaginación.
+            Como ingeniero y docente universitario, mantienes una búsqueda constante del conocimiento y exploras los vínculos entre las matemáticas, la ciencia, la tecnología, la ingeniería y la creatividad. En Ciencia Poética compartes esas conexiones a través de cursos, conversaciones y proyectos.
           </p>
           <nav aria-label="Redes sociales de Jordan Blancas" className="flex flex-wrap gap-2 md:justify-end">
             <SocialLink href="https://www.facebook.com/jordanblancas" label="Facebook"><Facebook /></SocialLink>
