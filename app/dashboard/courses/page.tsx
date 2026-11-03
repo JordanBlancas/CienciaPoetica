@@ -162,7 +162,7 @@ export default function MyCoursesPage() {
 
                   <div className="flex gap-2">
                     <button
-                      onClick={() => router.push(`/courses/${course.id}`)}
+                      onClick={() => router.push(userRole === 'instructor' ? `/dashboard/courses/${course.id}/edit` : `/courses/${course.id}`)}
                       className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2"
                     >
                       <Play className="h-4 w-4" />

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Navbar from '@/components/Navbar'
 import Sidebar from '@/components/Sidebar'
 import { supabase } from '@/lib/supabaseClient'
 import { User } from '@supabase/supabase-js'
@@ -27,9 +28,14 @@ export default function DashboardLayout({
 
       setUser(user)
 
-      // Get user role from metadata
-      const role = user.user_metadata?.role || 'student'
-      setUserRole(role)
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle()
+
+      const role = profile?.role || user.user_metadata?.role
+      setUserRole(role === 'admin' || role === 'instructor' ? role : 'student')
       setLoading(false)
     }
 
@@ -55,11 +61,14 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
-      <Sidebar userRole={userRole} />
-      <main className="min-w-0 flex-1 overflow-x-hidden">
-        {children}
-      </main>
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      <div className="flex min-h-[calc(100vh-4rem)] flex-col md:flex-row">
+        <Sidebar userRole={userRole} />
+        <main className="min-w-0 flex-1 overflow-x-hidden">
+          {children}
+        </main>
+      </div>
     </div>
   )
 }

@@ -49,7 +49,7 @@ export default function CreateCoursePage() {
         alert('Error al crear el curso')
       } else {
         alert('Curso creado exitosamente')
-        router.push(`/courses/${data.id}`)
+        router.push(`/dashboard/courses/${data.id}/edit`)
       }
     } catch (error) {
       console.error('Error:', error)

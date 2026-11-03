@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { 
@@ -23,6 +23,45 @@ interface SidebarProps {
 export default function Sidebar({ userRole = 'student' }: SidebarProps) {
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const touchStart = useRef<{ x: number; y: number } | null>(null)
+
+  useEffect(() => {
+    const handleTouchStart = (event: TouchEvent) => {
+      const touch = event.touches[0]
+      touchStart.current = { x: touch.clientX, y: touch.clientY }
+    }
+
+    const handleTouchEnd = (event: TouchEvent) => {
+      const start = touchStart.current
+      touchStart.current = null
+      if (!start || !window.matchMedia('(max-width: 767px)').matches) return
+
+      const touch = event.changedTouches[0]
+      const deltaX = touch.clientX - start.x
+      const deltaY = Math.abs(touch.clientY - start.y)
+      if (deltaY > 60) return
+
+      if (!isMobileMenuOpen && start.x < 28 && deltaX > 80) {
+        setIsMobileMenuOpen(true)
+      } else if (isMobileMenuOpen && deltaX < -80) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMobileMenuOpen(false)
+    }
+
+    window.addEventListener('touchstart', handleTouchStart, { passive: true })
+    window.addEventListener('touchend', handleTouchEnd, { passive: true })
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchend', handleTouchEnd)
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isMobileMenuOpen])
 
   const studentMenu = [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
@@ -82,6 +121,7 @@ export default function Sidebar({ userRole = 'student' }: SidebarProps) {
           type="button"
           onClick={() => setIsMobileMenuOpen(false)}
           aria-label="Cerrar navegación del panel"
+          tabIndex={-1}
           className="fixed inset-0 z-40 bg-black/40 md:hidden"
         />
       )}

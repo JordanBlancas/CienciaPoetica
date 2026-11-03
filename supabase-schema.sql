@@ -1,4 +1,4 @@
--- Ciencia Poética - Esquema de Base de Datos Supabase
+-- LMS Moderno - Esquema de Base de Datos Supabase
 -- Ejecutar este script en el editor SQL de Supabase
 
 -- Crear tabla de usuarios extendida
@@ -102,7 +102,14 @@ CREATE POLICY "Users can view own enrollments" ON public.enrollments
   FOR SELECT USING (auth.uid() = user_id);
 
 CREATE POLICY "Users can create own enrollments" ON public.enrollments
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+  FOR INSERT WITH CHECK (
+    auth.uid() = user_id AND EXISTS (
+      SELECT 1 FROM public.courses
+      WHERE courses.id = course_id
+        AND courses.is_published = true
+        AND courses.price = 0
+    )
+  );
 
 CREATE POLICY "Users can update own enrollments" ON public.enrollments
   FOR UPDATE USING (auth.uid() = user_id);
@@ -123,11 +130,14 @@ BEGIN
     NEW.id,
     NEW.email,
     NEW.raw_user_meta_data->>'full_name',
-    COALESCE(NEW.raw_user_meta_data->>'role', 'student')
+    CASE
+      WHEN NEW.raw_user_meta_data->>'role' = 'instructor' THEN 'instructor'
+      ELSE 'student'
+    END
   );
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = '';
 
 -- Trigger para crear perfil automáticamente
 CREATE TRIGGER on_auth_user_created

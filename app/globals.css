@@ -2,9 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --ink: #20302d;
+  --paper: #f7f8f4;
+  --evergreen: #275e53;
+  --coral: #c96e52;
+}
+
 @layer base {
   html {
     font-family: system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
   }
 }
 

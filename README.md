@@ -1,4 +1,4 @@
-# Ciencia Poética - Plataforma de Aprendizaje
+# LMS Moderno - Plataforma de Aprendizaje
 
 Una plataforma moderna de gestión de aprendizaje (LMS) construida con Next.js, Supabase y Tailwind CSS. Similar a WordPress + Tutor LMS pero con un stack tecnológico moderno y desplegable en Vercel.
 
@@ -11,7 +11,7 @@ Una plataforma moderna de gestión de aprendizaje (LMS) construida con Next.js, 
 - **CRUD Completo**: Gestión de cursos, lecciones y usuarios
 - **Panel de Usuario**: Dashboard personalizado con progreso de aprendizaje
 - **Seguridad**: Row Level Security (RLS) en Supabase
-- **Despliegue Fácil**: Configurado para Vercel con GitHub Actions.
+- **Despliegue Fácil**: Configurado para Vercel con GitHub Actions
 
 ## 🛠️ Stack Tecnológico
 
@@ -197,7 +197,10 @@ BEGIN
     NEW.id,
     NEW.email,
     NEW.raw_user_meta_data->>'full_name',
-    COALESCE(NEW.raw_user_meta_data->>'role', 'student')
+    CASE
+      WHEN NEW.raw_user_meta_data->>'role' = 'instructor' THEN 'instructor'
+      ELSE 'student'
+    END
   );
   RETURN NEW;
 END;
@@ -208,6 +211,8 @@ CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 ```
+
+  Para habilitar la administración de perfiles y las operaciones seguras de roles y usuarios, ejecuta también `supabase-admin-policies.sql` en el editor SQL de Supabase. Si el proyecto ya existe, ejecuta solo esa migración; también evita que el rol de administrador se asigne durante el registro público.
 
 ### 5. Ejecutar en Desarrollo
 

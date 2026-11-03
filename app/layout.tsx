@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Ciencia Poética - Plataforma de Aprendizaje',
-  description: 'Una plataforma moderna de gestión de aprendizaje construida con Next.js y Supabase',
+  title: 'Ciencia Poética | Matemáticas, ingeniería e imaginación',
+  description: 'Cursos y conversaciones para descubrir la belleza que une la ciencia, las matemáticas, la ingeniería y el arte.',
 }
 
 export default function RootLayout({

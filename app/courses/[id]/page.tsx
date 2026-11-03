@@ -1,13 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import { supabase, Course, Lesson } from '@/lib/supabaseClient'
 import { Play, Clock, Users, Star, BookOpen, CheckCircle } from 'lucide-react'
 
 export default function CourseDetailPage() {
   const params = useParams()
+  const router = useRouter()
   const courseId = params.id as string
   
   const [course, setCourse] = useState<Course | null>(null)
@@ -17,10 +18,30 @@ export default function CourseDetailPage() {
 
   useEffect(() => {
     if (courseId) {
+      checkIfInstructor()
       fetchCourseDetails()
       checkEnrollment()
     }
   }, [courseId])
+
+  const checkIfInstructor = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
+
+      const { data: courseData } = await supabase
+        .from('courses')
+        .select('instructor_id')
+        .eq('id', courseId)
+        .single()
+
+      if (courseData && courseData.instructor_id === user.id) {
+        router.replace(`/dashboard/courses/${courseId}/edit`)
+      }
+    } catch (error) {
+      console.error('Error checking instructor:', error)
+    }
+  }
 
   const fetchCourseDetails = async () => {
     try {
@@ -78,11 +99,12 @@ export default function CourseDetailPage() {
   }
 
   const handleEnroll = async () => {
+    if (!course || course.price > 0) return
+
     try {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) {
-        // Redirect to login
-        window.location.href = '/auth/login'
+        router.push('/auth/login')
         return
       }
 
@@ -169,12 +191,12 @@ export default function CourseDetailPage() {
               
               <div className="p-6">
                 <h1 className="text-3xl font-bold text-gray-900 mb-4">{course.title}</h1>
-                <p className="text-gray-600 text-lg leading-relaxed">{course.description}</p>
+                <p className="text-gray-600 text-lg leading-relaxed">{course.description || 'Descripción próximamente.'}</p>
               </div>
             </div>
 
             {/* Lessons */}
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div id="course-content" className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Contenido del Curso</h2>
               
               {lessons.length > 0 ? (
@@ -187,16 +209,13 @@ export default function CourseDetailPage() {
                       
                       <div className="flex-1">
                         <h3 className="text-lg font-medium text-gray-900">{lesson.title}</h3>
-                        <p className="text-sm text-gray-600 mt-1">
-                          {lesson.content.substring(0, 100)}...
-                        </p>
+                        {lesson.content && <p className="text-sm text-gray-600 mt-1">{lesson.content.substring(0, 100)}...</p>}
                       </div>
                       
                       <div className="flex items-center space-x-2">
                         {lesson.video_url && (
                           <Play className="h-5 w-5 text-gray-400" />
                         )}
-                        <span className="text-sm text-gray-500">5 min</span>
                       </div>
                     </div>
                   ))}
@@ -217,23 +236,25 @@ export default function CourseDetailPage() {
                 <div className="text-3xl font-bold text-primary-600 mb-2">
                   {course.price === 0 ? 'Gratis' : `$${course.price}`}
                 </div>
-                <p className="text-gray-600">Pago único</p>
+                <p className="text-gray-600">{course.price === 0 ? 'Inscripción gratuita' : 'Pago en línea próximamente'}</p>
               </div>
 
               {enrolled ? (
                 <div className="text-center">
                   <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
                   <p className="text-green-600 font-medium mb-4">¡Ya estás inscrito!</p>
-                  <button className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700">
-                    Continuar Aprendiendo
-                  </button>
+                  <a href="#course-content" className="block w-full rounded-md bg-primary-600 px-4 py-2 text-white hover:bg-primary-700">Ver lecciones</a>
+                </div>
+              ) : course.price > 0 ? (
+                <div className="rounded-md border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+                  Este curso es de pago. La inscripción estará disponible cuando se configure el pago en línea.
                 </div>
               ) : (
                 <button
                   onClick={handleEnroll}
                   className="w-full bg-primary-600 text-white py-3 px-4 rounded-md font-medium hover:bg-primary-700 transition-colors duration-200"
                 >
-                  Inscribirse al Curso
+                  Inscribirse gratis
                 </button>
               )}
 
@@ -243,7 +264,7 @@ export default function CourseDetailPage() {
                     <Clock className="h-5 w-5 text-gray-400 mr-2" />
                     <span className="text-sm text-gray-600">Duración</span>
                   </div>
-                  <span className="text-sm font-medium">8 horas</span>
+                  <span className="text-sm font-medium">{lessons.length} lecciones</span>
                 </div>
                 
                 <div className="flex items-center justify-between">
@@ -251,7 +272,7 @@ export default function CourseDetailPage() {
                     <Users className="h-5 w-5 text-gray-400 mr-2" />
                     <span className="text-sm text-gray-600">Estudiantes</span>
                   </div>
-                  <span className="text-sm font-medium">120</span>
+                  <span className="text-sm font-medium">En línea</span>
                 </div>
                 
                 <div className="flex items-center justify-between">
@@ -259,30 +280,12 @@ export default function CourseDetailPage() {
                     <Star className="h-5 w-5 text-gray-400 mr-2" />
                     <span className="text-sm text-gray-600">Calificación</span>
                   </div>
-                  <span className="text-sm font-medium">4.8 (24)</span>
+                  <span className="text-sm font-medium">A tu ritmo</span>
                 </div>
               </div>
 
               <div className="mt-6 pt-6 border-t border-gray-200">
-                <h3 className="text-lg font-medium text-gray-900 mb-3">Lo que aprenderás</h3>
-                <ul className="space-y-2 text-sm text-gray-600">
-                  <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    Conceptos fundamentales
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    Aplicaciones prácticas
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    Proyectos reales
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    Certificación al finalizar
-                  </li>
-                </ul>
+                <p className="text-sm leading-6 text-gray-600">El contenido detallado y los materiales están en las lecciones del curso.</p>
               </div>
             </div>
           </div>
