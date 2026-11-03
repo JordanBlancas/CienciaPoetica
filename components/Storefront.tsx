@@ -280,7 +280,7 @@ export default function Storefront() {
                 <h2 className="mt-0.5 font-serif text-base font-semibold tracking-normal text-slate-800 sm:text-lg">Jordan Blancas</h2>
               </div>
             </div>
-            <nav aria-label="Redes sociales de Jordan Blancas" className="flex max-w-[15rem] flex-wrap gap-1.5">
+            <nav aria-label="Redes sociales de Jordan Blancas" className="flex flex-nowrap gap-1.5">
               <SocialLink small href="https://www.facebook.com/jordanblancas" label="Facebook"><Facebook /></SocialLink>
               <SocialLink small href="https://www.instagram.com/jordanblancas" label="Instagram"><Instagram /></SocialLink>
               <SocialLink small href="https://pe.linkedin.com/in/jordanblancas" label="LinkedIn"><Linkedin /></SocialLink>
@@ -289,6 +289,7 @@ export default function Storefront() {
               <SocialLink small href="https://github.com/JordanBlancas" label="GitHub"><Github /></SocialLink>
               <SocialLink small href="https://x.com/jordanblancas" label="X"><XBrand /></SocialLink>
               <SocialLink small href="https://www.tiktok.com/@jordan.blancas" label="TikTok"><Music2 /></SocialLink>
+              <SocialLink small href="https://www.youtube.com/@prof.jordanblancas" label="YouTube"><Youtube /></SocialLink>
             </nav>
           </div>
           <p className="max-w-2xl text-xs leading-5 text-slate-600 sm:text-sm sm:leading-6">
