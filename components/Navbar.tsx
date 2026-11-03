@@ -5,11 +5,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { supabase } from '@/lib/supabaseClient'
 import { User } from '@supabase/supabase-js'
-import { Menu, X, User as UserIcon, LogOut } from 'lucide-react'
+import { LogIn, LogOut, User as UserIcon, UserPlus } from 'lucide-react'
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
     const getUser = async () => {
@@ -85,57 +84,28 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              type="button"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label={isMenuOpen ? 'Cerrar menú principal' : 'Abrir menú principal'}
-              aria-expanded={isMenuOpen}
-              aria-controls="primary-mobile-menu"
-              className="rounded-md p-2 text-gray-700 hover:bg-emerald-50 hover:text-emerald-900 focus:outline-none focus:ring-2 focus:ring-emerald-700"
-            >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+          <div className="flex items-center gap-1 md:hidden">
+            {user ? (
+              <>
+                <Link href="/dashboard" aria-label="Abrir mi panel" title="Mi Panel" className="rounded-full p-2.5 text-slate-600 transition hover:bg-white/75 hover:text-[var(--evergreen)]">
+                  <UserIcon className="h-5 w-5" />
+                </Link>
+                <button type="button" onClick={handleSignOut} aria-label="Cerrar sesión" title="Salir" className="rounded-full p-2.5 text-slate-600 transition hover:bg-white/75 hover:text-[var(--evergreen)]">
+                  <LogOut className="h-5 w-5" />
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/auth/login" aria-label="Iniciar sesión" title="Iniciar sesión" className="rounded-full p-2.5 text-slate-600 transition hover:bg-white/75 hover:text-[var(--evergreen)]">
+                  <LogIn className="h-5 w-5" />
+                </Link>
+                <Link href="/auth/register" aria-label="Crear cuenta" title="Crear cuenta" className="rounded-full p-2.5 text-slate-600 transition hover:bg-white/75 hover:text-[var(--evergreen)]">
+                  <UserPlus className="h-5 w-5" />
+                </Link>
+              </>
+            )}
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-            <div id="primary-mobile-menu" className="absolute inset-x-0 top-full border-b border-emerald-950/10 bg-white/95 px-4 pb-4 shadow-xl backdrop-blur-xl md:hidden">
-              <div className="space-y-1 pt-3">
-                <Link href="/" onClick={() => setIsMenuOpen(false)} className="block rounded-md px-3 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50">
-                  Explorar contenido
-                </Link>
-              
-              {user ? (
-                <>
-                  <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="block rounded-md px-3 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50">
-                    Mi Panel
-                  </Link>
-                  <div className="px-3 py-2 text-sm text-gray-500">
-                    {user.email}
-                  </div>
-                  <button
-                    onClick={handleSignOut}
-                    className="block w-full rounded-md px-3 py-3 text-left text-base font-medium text-gray-700 hover:bg-emerald-50"
-                  >
-                    Salir
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link href="/auth/login" onClick={() => setIsMenuOpen(false)} className="block rounded-md px-3 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50">
-                    Iniciar Sesión
-                  </Link>
-                  <Link href="/auth/register" onClick={() => setIsMenuOpen(false)} className="block rounded-md bg-emerald-800 px-3 py-3 text-base font-medium text-white hover:bg-emerald-900">
-                    Registrarse
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   )

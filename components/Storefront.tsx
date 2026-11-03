@@ -190,6 +190,20 @@ export default function Storefront() {
         <section className="grid items-center gap-5 py-5 sm:gap-8 md:min-h-[420px] md:grid-cols-[1.05fr_0.95fr] md:py-8">
           <div className="relative z-[1] max-w-2xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--evergreen)] sm:text-sm">Matemáticas · Ingeniería · Imaginación</p>
+            <section aria-label="Explora Ciencia Poética" className="mb-5 grid grid-cols-2 gap-2 sm:mb-6 sm:grid-cols-4 sm:gap-2.5">
+              {sections.map(({ key, title, icon: Icon }) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setActiveSection(key)}
+                  className="group glass-panel flex min-h-11 items-center gap-2 rounded-xl px-2.5 py-2 text-left transition hover:-translate-y-0.5 hover:bg-white/85 focus:outline-none focus:ring-4 focus:ring-emerald-700/15 sm:justify-center sm:px-2"
+                >
+                  <Icon className="h-4 w-4 shrink-0 text-[var(--evergreen)]" strokeWidth={1.9} />
+                  <span className="text-xs font-semibold text-slate-700 sm:text-sm">{title}</span>
+                  <ArrowRight className="ml-auto h-3.5 w-3.5 shrink-0 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-[var(--evergreen)] sm:hidden" />
+                </button>
+              ))}
+            </section>
             <h1 className="max-w-[12ch] font-serif text-[2.8rem] font-medium leading-[0.98] tracking-normal text-[#17212b] sm:text-6xl md:text-7xl">Ciencia <span className="italic text-[var(--evergreen)]">Poética</span></h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8">
               Ciencia y matemáticas como formas de expresión. Un lugar para aprender, escuchar ideas y llevar la curiosidad a la vida diaria.
@@ -205,26 +219,6 @@ export default function Storefront() {
           </figure>
         </section>
 
-        <section aria-label="Explora Ciencia Poética" className="mt-4 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-4 lg:grid-cols-4">
-          {sections.map(({ key, title, description, icon: Icon, tint }) => (
-            <button
-              key={key}
-              type="button"
-              onClick={() => setActiveSection(key)}
-              className={`group glass-panel flex min-h-36 flex-col items-start rounded-2xl bg-gradient-to-br ${tint} p-4 text-left transition duration-200 hover:-translate-y-1 hover:shadow-[0_24px_60px_-34px_rgba(27,43,61,0.5)] focus:outline-none focus:ring-4 focus:ring-emerald-700/15 sm:min-h-40 sm:p-5`}
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/80 bg-white/65 text-[var(--evergreen)] shadow-sm backdrop-blur-xl">
-                <Icon className="h-5 w-5" strokeWidth={1.8} />
-              </span>
-              <span className="mt-4 flex w-full items-center justify-between gap-2 font-serif text-xl font-semibold text-slate-800 sm:text-2xl">
-                {title}<ArrowRightIcon />
-              </span>
-              <span className="mt-1 text-xs leading-5 text-slate-600 sm:text-sm">{description}</span>
-            </button>
-          ))}
-        </section>
-
-        <p className="mt-6 text-center text-xs text-slate-500">Cursos selectos · Videos · Podcast · Objetos de Ciencia Poética</p>
       </main>
 
       {active && (
@@ -287,10 +281,6 @@ export default function Storefront() {
       )}
     </div>
   )
-}
-
-function ArrowRightIcon() {
-  return <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:translate-x-1 group-hover:text-[var(--evergreen)]" />
 }
 
 function ItemGrid({ items, empty, onSelect, type }: { items: SelectedItem[]; empty: string; onSelect: (item: SelectedItem) => void; type: 'course' | 'media' | 'product' }) {
