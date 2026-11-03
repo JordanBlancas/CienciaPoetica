@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { Brain, BookOpen, Clapperboard, Facebook, Github, Globe2, GraduationCap, Instagram, Linkedin, Mic2, Music2, ShoppingBag, X, X as XBrand } from 'lucide-react'
+import { Brain, BookOpen, Clapperboard, Facebook, Github, Globe2, GraduationCap, Instagram, Linkedin, Mic2, Music2, ShoppingBag, X, X as XBrand, Youtube } from 'lucide-react'
 import { Course, supabase } from '@/lib/supabaseClient'
 import Navbar from '@/components/Navbar'
 
@@ -286,6 +286,22 @@ export default function Storefront() {
             <SocialLink href="https://www.tiktok.com/@jordan.blancas" label="TikTok"><Music2 /></SocialLink>
           </nav>
         </section>
+
+        <footer className="border-t border-slate-300/55 py-6 sm:py-8">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <p className="font-serif text-lg font-semibold text-slate-800">Ciencia Poética</p>
+            <nav aria-label="Redes sociales de Ciencia Poética" className="flex flex-wrap gap-2">
+              <SocialLink href="https://www.facebook.com/jordanblancas" label="Facebook de Ciencia Poética"><Facebook /></SocialLink>
+              <SocialLink href="https://www.instagram.com/jordanblancas" label="Instagram de Ciencia Poética"><Instagram /></SocialLink>
+              <SocialLink href="https://www.youtube.com/@cienciapoetica" label="YouTube de Ciencia Poética"><Youtube /></SocialLink>
+              <SocialLink href="https://www.tiktok.com/@jordan.blancas" label="TikTok de Ciencia Poética"><Music2 /></SocialLink>
+            </nav>
+          </div>
+          <div className="mt-5 flex flex-col gap-2 border-t border-slate-300/40 pt-4 text-[11px] leading-5 text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 Ciencia Poética. Todos los derechos reservados.</p>
+            <p>Hecho con <span role="img" aria-label="amor">❤️</span> por <a href="https://virtualflow.tech" target="_blank" rel="noreferrer" className="font-medium text-slate-600 underline decoration-slate-400/50 underline-offset-2 hover:text-[var(--evergreen)]">virtualflow.tech</a></p>
+          </div>
+        </footer>
 
       </main>
 
