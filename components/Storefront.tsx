@@ -72,9 +72,10 @@ export default function Storefront() {
   const [courses, setCourses] = useState<Course[]>([])
   const [media, setMedia] = useState<MediaItem[]>([])
   const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState('')
+  const [sectionErrors, setSectionErrors] = useState<Partial<Record<SectionKey, string>>>({})
 
   useEffect(() => {
     if (!selectedItem) return
@@ -94,39 +95,47 @@ export default function Storefront() {
   }, [selectedItem])
 
   useEffect(() => {
-    if (!activeSection) return
     let cancelled = false
 
-    const loadSection = async () => {
-      setLoading(true)
-      setMessage('')
-      setSelectedItem(null)
+    const prefetchContent = async () => {
+      const [courseResult, mediaResult, productResult] = await Promise.all([
+        supabase.from('courses').select('*').eq('is_published', true).order('created_at', { ascending: false }).limit(10),
+        supabase.from('media_items').select('id,title,description,image_url,youtube_url,media_type').eq('is_published', true).order('published_at', { ascending: false }).limit(20),
+        supabase.from('products').select('id,title,description,image_url,price,currency,stripe_price_id').eq('is_published', true).order('created_at', { ascending: false }).limit(20),
+      ])
 
-      try {
-        if (activeSection === 'courses') {
-          const { data, error } = await supabase.from('courses').select('*').eq('is_published', true).order('created_at', { ascending: false }).limit(10)
-          if (error) throw error
-          if (!cancelled) setCourses(data || [])
-        } else if (activeSection === 'videos' || activeSection === 'podcast') {
-          const { data, error } = await supabase.from('media_items').select('id,title,description,image_url,youtube_url,media_type').eq('is_published', true).eq('media_type', activeSection === 'videos' ? 'video' : 'podcast').order('published_at', { ascending: false }).limit(20)
-          if (error) throw error
-          if (!cancelled) setMedia((data || []) as MediaItem[])
-        } else {
-          const { data, error } = await supabase.from('products').select('id,title,description,image_url,price,currency,stripe_price_id').eq('is_published', true).order('created_at', { ascending: false }).limit(20)
-          if (error) throw error
-          if (!cancelled) setProducts((data || []) as Product[])
-        }
-      } catch (error) {
-        console.error('Error loading storefront section:', error)
-        if (!cancelled) setMessage('No se pudo cargar el contenido. Comprueba la conexión e inténtalo de nuevo.')
-      } finally {
-        if (!cancelled) setLoading(false)
+      if (cancelled) return
+
+      const errors: Partial<Record<SectionKey, string>> = {}
+      if (courseResult.error) {
+        console.error('Error loading courses:', courseResult.error)
+        errors.courses = 'No se pudieron cargar los cursos. Inténtalo de nuevo.'
+      } else {
+        setCourses(courseResult.data || [])
       }
+
+      if (mediaResult.error) {
+        console.error('Error loading media:', mediaResult.error)
+        errors.videos = 'No se pudieron cargar los videos. Inténtalo de nuevo.'
+        errors.podcast = 'No se pudieron cargar los episodios. Inténtalo de nuevo.'
+      } else {
+        setMedia((mediaResult.data || []) as MediaItem[])
+      }
+
+      if (productResult.error) {
+        console.error('Error loading products:', productResult.error)
+        errors.store = 'No se pudieron cargar los productos. Inténtalo de nuevo.'
+      } else {
+        setProducts((productResult.data || []) as Product[])
+      }
+
+      setSectionErrors(errors)
+      setLoading(false)
     }
 
-    loadSection()
+    prefetchContent()
     return () => { cancelled = true }
-  }, [activeSection])
+  }, [])
 
   const closeSection = () => {
     setActiveSection(null)
@@ -195,6 +204,7 @@ export default function Storefront() {
                 type="button"
                 aria-pressed={activeSection === key}
                 onClick={() => {
+                  setMessage('')
                   setSelectedItem(null)
                   setActiveSection(activeSection === key ? null : key)
                 }}
@@ -220,12 +230,14 @@ export default function Storefront() {
               <div className="grid gap-3 md:grid-cols-2"><div className="h-28 animate-pulse rounded-xl bg-white/60" /><div className="h-28 animate-pulse rounded-xl bg-white/60" /></div>
             ) : message ? (
               <p role="alert" className="rounded-xl border border-rose-200 bg-rose-50/80 p-4 text-sm text-rose-700">{message}</p>
+            ) : sectionErrors[active.key] ? (
+              <p role="alert" className="rounded-xl border border-rose-200 bg-rose-50/80 p-4 text-sm text-rose-700">{sectionErrors[active.key]}</p>
             ) : (
               <InlineItemGrid
-                items={activeSection === 'courses' ? courses : activeSection === 'store' ? products : media}
-                empty={activeSection === 'courses' ? 'Los cursos aparecerán aquí cuando estén publicados.' : activeSection === 'videos' ? 'Los videos y noticias aparecerán aquí cuando haya contenido publicado.' : activeSection === 'podcast' ? 'Las primeras conversaciones aparecerán aquí cuando se publique un episodio.' : 'La primera colección de tazas, polos y objetos de Ciencia Poética está en preparación.'}
+                items={active.key === 'courses' ? courses : active.key === 'store' ? products : media.filter((item) => item.media_type === (active.key === 'videos' ? 'video' : 'podcast'))}
+                empty={active.key === 'courses' ? 'Los cursos aparecerán aquí cuando estén publicados.' : active.key === 'videos' ? 'Los videos y noticias aparecerán aquí cuando haya contenido publicado.' : active.key === 'podcast' ? 'Las primeras conversaciones aparecerán aquí cuando se publique un episodio.' : 'La primera colección de tazas, polos y objetos de Ciencia Poética está en preparación.'}
                 onSelect={setSelectedItem}
-                type={activeSection === 'courses' ? 'course' : activeSection === 'store' ? 'product' : 'media'}
+                type={active.key === 'courses' ? 'course' : active.key === 'store' ? 'product' : 'media'}
               />
             )}
           </section>
