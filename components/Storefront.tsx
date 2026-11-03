@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { Brain, BookOpen, Clapperboard, Facebook, Globe2, GraduationCap, Instagram, Linkedin, Mic2, ShoppingBag, X } from 'lucide-react'
+import { Brain, BookOpen, Clapperboard, Facebook, Github, Globe2, GraduationCap, Instagram, Linkedin, Mic2, Music2, ShoppingBag, X, X as XBrand } from 'lucide-react'
 import { Course, supabase } from '@/lib/supabaseClient'
 import Navbar from '@/components/Navbar'
 
@@ -187,7 +187,7 @@ export default function Storefront() {
 
       <main className="relative mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-10">
         <section className="pt-6 sm:pt-8">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--evergreen)] sm:text-sm">Matemáticas · Ciencia · Tecnología · Ingeniería</p>
+          <p className="mb-4 whitespace-nowrap text-[10px] font-semibold uppercase leading-none tracking-[0.04em] text-[var(--evergreen)] sm:text-sm sm:tracking-[0.12em]">Matemáticas · Ciencia · Tecnología · Ingeniería</p>
           <div aria-label="Explora Ciencia Poética" className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
             {sections.map(({ key, title, icon: Icon, tint }) => (
               <button
@@ -258,7 +258,7 @@ export default function Storefront() {
               className="h-16 w-16 shrink-0 rounded-full border border-white/85 object-cover shadow-[0_12px_30px_-18px_rgba(27,43,61,0.55)] sm:h-[4.5rem] sm:w-[4.5rem]"
             />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--evergreen)]">El encuentro entre rigor e imaginación</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--evergreen)]">Sobre el creador</p>
               <h2 className="mt-1 font-serif text-xl font-semibold tracking-normal text-slate-800 sm:text-2xl">Jordan Blancas</h2>
             </div>
           </div>
@@ -271,6 +271,9 @@ export default function Storefront() {
             <SocialLink href="https://pe.linkedin.com/in/jordanblancas" label="LinkedIn"><Linkedin /></SocialLink>
             <SocialLink href="https://jordanblancas.com" label="Sitio web"><Globe2 /></SocialLink>
             <SocialLink href="https://polimatas.club/jordanblancas" label="Polímatas Club"><Brain /></SocialLink>
+            <SocialLink href="https://github.com/JordanBlancas" label="GitHub"><Github /></SocialLink>
+            <SocialLink href="https://x.com/jordanblancas" label="X"><XBrand /></SocialLink>
+            <SocialLink href="https://www.tiktok.com/@jordan.blancas" label="TikTok"><Music2 /></SocialLink>
           </nav>
         </section>
 
