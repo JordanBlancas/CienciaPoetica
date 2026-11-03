@@ -60,7 +60,7 @@
     position: absolute;
     top: 50%;
     right: 0;
-    width: min(94vw, 28rem);
+    width: 100vw;
     aspect-ratio: 0.78;
     transform: translateY(-50%);
     -webkit-mask-image: radial-gradient(ellipse 72% 54% at 50% 50%, #000 45%, rgba(0, 0, 0, 0.78) 65%, rgba(0, 0, 0, 0.26) 84%, transparent 100%);
