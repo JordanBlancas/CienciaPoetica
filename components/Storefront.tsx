@@ -258,46 +258,46 @@ export default function Storefront() {
           </div>
         </section>
 
-        <section className="grid gap-5 border-t border-slate-300/55 py-8 sm:py-10 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-7">
-          <div className="flex items-center gap-4">
+        <section className="grid gap-3 border-t border-slate-300/55 py-5 sm:py-6 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-5">
+          <div className="flex items-center gap-3">
             <Image
               src="/images/jordan-blancas.jpg"
               alt="Jordan Blancas"
-              width={72}
-              height={72}
-              className="h-16 w-16 shrink-0 rounded-full border border-white/85 object-cover shadow-[0_12px_30px_-18px_rgba(27,43,61,0.55)] sm:h-[4.5rem] sm:w-[4.5rem]"
+              width={56}
+              height={56}
+              className="h-12 w-12 shrink-0 rounded-full border border-white/85 object-cover shadow-[0_12px_30px_-18px_rgba(27,43,61,0.55)] sm:h-14 sm:w-14"
             />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--evergreen)]">Sobre el autor</p>
-              <h2 className="mt-1 font-serif text-xl font-semibold tracking-normal text-slate-800 sm:text-2xl">Jordan Blancas</h2>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[var(--evergreen)]">Sobre el autor</p>
+              <h2 className="mt-0.5 font-serif text-lg font-semibold tracking-normal text-slate-800 sm:text-xl">Jordan Blancas</h2>
             </div>
           </div>
-          <p className="max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-            Como ingeniero y docente universitario, mantienes una búsqueda constante del conocimiento y exploras los vínculos entre las matemáticas, la ciencia, la tecnología, la ingeniería y la creatividad. En Ciencia Poética compartes esas conexiones a través de cursos, conversaciones y proyectos.
+          <p className="max-w-2xl text-xs leading-6 text-slate-600 sm:text-sm">
+            Soy ingeniero y docente universitario. Me interesa explorar cómo dialogan las matemáticas, la ciencia, la tecnología y la ingeniería con la creatividad. En Ciencia Poética comparto esa búsqueda mediante cursos, conversaciones y proyectos.
           </p>
           <nav aria-label="Redes sociales de Jordan Blancas" className="flex flex-wrap gap-2 md:justify-end">
-            <SocialLink href="https://www.facebook.com/jordanblancas" label="Facebook"><Facebook /></SocialLink>
-            <SocialLink href="https://www.instagram.com/jordanblancas" label="Instagram"><Instagram /></SocialLink>
-            <SocialLink href="https://pe.linkedin.com/in/jordanblancas" label="LinkedIn"><Linkedin /></SocialLink>
-            <SocialLink href="https://jordanblancas.com" label="Sitio web"><Globe2 /></SocialLink>
-            <SocialLink href="https://polimatas.club/jordanblancas" label="Polímatas Club"><Brain /></SocialLink>
-            <SocialLink href="https://github.com/JordanBlancas" label="GitHub"><Github /></SocialLink>
-            <SocialLink href="https://x.com/jordanblancas" label="X"><XBrand /></SocialLink>
-            <SocialLink href="https://www.tiktok.com/@jordan.blancas" label="TikTok"><Music2 /></SocialLink>
+            <SocialLink compact href="https://www.facebook.com/jordanblancas" label="Facebook"><Facebook /></SocialLink>
+            <SocialLink compact href="https://www.instagram.com/jordanblancas" label="Instagram"><Instagram /></SocialLink>
+            <SocialLink compact href="https://pe.linkedin.com/in/jordanblancas" label="LinkedIn"><Linkedin /></SocialLink>
+            <SocialLink compact href="https://jordanblancas.com" label="Sitio web"><Globe2 /></SocialLink>
+            <SocialLink compact href="https://polimatas.club/jordanblancas" label="Polímatas Club"><Brain /></SocialLink>
+            <SocialLink compact href="https://github.com/JordanBlancas" label="GitHub"><Github /></SocialLink>
+            <SocialLink compact href="https://x.com/jordanblancas" label="X"><XBrand /></SocialLink>
+            <SocialLink compact href="https://www.tiktok.com/@jordan.blancas" label="TikTok"><Music2 /></SocialLink>
           </nav>
         </section>
 
-        <footer className="border-t border-slate-300/55 py-6 sm:py-8">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+        <footer className="border-t border-slate-300/55 py-6 text-center sm:py-8">
+          <div className="flex flex-col items-center gap-4 text-center">
             <p className="font-serif text-lg font-semibold text-slate-800">Ciencia Poética</p>
-            <nav aria-label="Redes sociales de Ciencia Poética" className="flex flex-wrap gap-2">
+            <nav aria-label="Redes sociales de Ciencia Poética" className="flex flex-wrap justify-center gap-2">
               <SocialLink href="https://www.facebook.com/jordanblancas" label="Facebook de Ciencia Poética"><Facebook /></SocialLink>
               <SocialLink href="https://www.instagram.com/jordanblancas" label="Instagram de Ciencia Poética"><Instagram /></SocialLink>
               <SocialLink href="https://www.youtube.com/@cienciapoetica" label="YouTube de Ciencia Poética"><Youtube /></SocialLink>
               <SocialLink href="https://www.tiktok.com/@jordan.blancas" label="TikTok de Ciencia Poética"><Music2 /></SocialLink>
             </nav>
           </div>
-          <div className="mt-5 flex flex-col gap-2 border-t border-slate-300/40 pt-4 text-[11px] leading-5 text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-5 flex flex-col items-center gap-1 border-t border-slate-300/40 pt-4 text-center text-[11px] leading-5 text-slate-500">
             <p>© 2026 Ciencia Poética. Todos los derechos reservados.</p>
             <p>Hecho con <span role="img" aria-label="amor">❤️</span> por <a href="https://virtualflow.tech" target="_blank" rel="noreferrer" className="font-medium text-slate-600 underline decoration-slate-400/50 underline-offset-2 hover:text-[var(--evergreen)]">virtualflow.tech</a></p>
           </div>
@@ -387,7 +387,7 @@ function InlineItemGrid({ items, empty, onSelect, type }: { items: SelectedItem[
   )
 }
 
-function SocialLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
+function SocialLink({ href, label, children, compact = false }: { href: string; label: string; children: React.ReactNode; compact?: boolean }) {
   return (
     <a
       href={href}
@@ -395,7 +395,7 @@ function SocialLink({ href, label, children }: { href: string; label: string; ch
       rel="noreferrer"
       aria-label={label}
       title={label}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-white/80 bg-white/55 text-slate-600 shadow-sm backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/85 hover:text-[var(--evergreen)]"
+      className={`flex items-center justify-center rounded-full border border-white/80 bg-white/55 text-slate-600 shadow-sm backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/85 hover:text-[var(--evergreen)] ${compact ? 'h-8 w-8' : 'h-10 w-10'}`}
     >
       {children}
     </a>
