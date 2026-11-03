@@ -265,36 +265,35 @@ export default function Storefront() {
           </div>
         </section>
 
-        <section className="glass-panel grid gap-4 rounded-2xl p-4 sm:p-5 md:grid-cols-[auto_1fr] md:items-center md:gap-x-5 md:gap-y-4">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/images/jordan-blancas.jpg"
-              alt="Jordan Blancas"
-              width={52}
-              height={52}
-              className="h-11 w-11 shrink-0 rounded-full border border-white/85 object-cover shadow-[0_12px_30px_-18px_rgba(27,43,61,0.55)] sm:h-12 sm:w-12"
-            />
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[var(--evergreen)]">Sobre el autor</p>
-              <h2 className="mt-0.5 font-serif text-base font-semibold tracking-normal text-slate-800 sm:text-lg">Jordan Blancas</h2>
+        <section className="grid gap-3 border-t border-slate-300/55 py-5 sm:py-6">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <div className="flex items-center gap-3">
+              <Image
+                src="/images/jordan-blancas.jpg"
+                alt="Jordan Blancas"
+                width={52}
+                height={52}
+                className="h-11 w-11 shrink-0 rounded-full border border-white/85 object-cover shadow-[0_12px_30px_-18px_rgba(27,43,61,0.55)] sm:h-12 sm:w-12"
+              />
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[var(--evergreen)]">Sobre el autor</p>
+                <h2 className="mt-0.5 font-serif text-base font-semibold tracking-normal text-slate-800 sm:text-lg">Jordan Blancas</h2>
+              </div>
             </div>
+            <nav aria-label="Redes sociales de Jordan Blancas" className="flex max-w-[15rem] flex-wrap gap-1.5">
+              <SocialLink small href="https://www.facebook.com/jordanblancas" label="Facebook"><Facebook /></SocialLink>
+              <SocialLink small href="https://www.instagram.com/jordanblancas" label="Instagram"><Instagram /></SocialLink>
+              <SocialLink small href="https://pe.linkedin.com/in/jordanblancas" label="LinkedIn"><Linkedin /></SocialLink>
+              <SocialLink small href="https://jordanblancas.com" label="Sitio web"><Globe2 /></SocialLink>
+              <SocialLink small href="https://polimatas.club/jordanblancas" label="Polímatas Club"><Brain /></SocialLink>
+              <SocialLink small href="https://github.com/JordanBlancas" label="GitHub"><Github /></SocialLink>
+              <SocialLink small href="https://x.com/jordanblancas" label="X"><XBrand /></SocialLink>
+              <SocialLink small href="https://www.tiktok.com/@jordan.blancas" label="TikTok"><Music2 /></SocialLink>
+            </nav>
           </div>
           <p className="max-w-2xl text-xs leading-5 text-slate-600 sm:text-sm sm:leading-6">
             Ingeniero y docente universitario. Me interesa explorar cómo dialogan las matemáticas, la ciencia, la tecnología y la ingeniería con la creatividad. En Ciencia Poética comparto esa búsqueda mediante cursos, conversarios y proyectos.
           </p>
-          <div className="flex flex-col gap-2 border-t border-slate-300/35 pt-3 sm:flex-row sm:items-center sm:justify-between md:col-span-2">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-slate-500">Perfiles de Jordan</p>
-            <nav aria-label="Redes sociales de Jordan Blancas" className="flex flex-wrap gap-2">
-              <SocialLink compact href="https://www.facebook.com/jordanblancas" label="Facebook"><Facebook /></SocialLink>
-              <SocialLink compact href="https://www.instagram.com/jordanblancas" label="Instagram"><Instagram /></SocialLink>
-              <SocialLink compact href="https://pe.linkedin.com/in/jordanblancas" label="LinkedIn"><Linkedin /></SocialLink>
-              <SocialLink compact href="https://jordanblancas.com" label="Sitio web"><Globe2 /></SocialLink>
-              <SocialLink compact href="https://polimatas.club/jordanblancas" label="Polímatas Club"><Brain /></SocialLink>
-              <SocialLink compact href="https://github.com/JordanBlancas" label="GitHub"><Github /></SocialLink>
-              <SocialLink compact href="https://x.com/jordanblancas" label="X"><XBrand /></SocialLink>
-              <SocialLink compact href="https://www.tiktok.com/@jordan.blancas" label="TikTok"><Music2 /></SocialLink>
-            </nav>
-          </div>
         </section>
 
         <footer className="mt-10 border-t border-slate-300/55 py-6 sm:mt-12 sm:py-8">
@@ -304,7 +303,10 @@ export default function Storefront() {
               <p className="mt-1 text-[11px] text-slate-500">Canales oficiales del proyecto</p>
             </div>
             <nav aria-label="Redes sociales de Ciencia Poética" className="flex flex-wrap justify-center gap-2">
+              <SocialLink href="https://www.facebook.com/CienciaPoetica/" label="Facebook de Ciencia Poética"><Facebook /></SocialLink>
+              <SocialLink href="https://www.instagram.com/Ciencia.Poetica/" label="Instagram de Ciencia Poética"><Instagram /></SocialLink>
               <SocialLink href="https://www.youtube.com/@cienciapoetica" label="YouTube de Ciencia Poética"><Youtube /></SocialLink>
+              <SocialLink href="https://www.tiktok.com/@cienciapoetica/" label="TikTok de Ciencia Poética"><Music2 /></SocialLink>
             </nav>
           </div>
           <div className="mt-5 flex flex-col items-center gap-1 border-t border-slate-300/40 pt-4 text-center text-[11px] leading-5 text-slate-500">
@@ -397,7 +399,7 @@ function InlineItemGrid({ items, empty, onSelect, type }: { items: SelectedItem[
   )
 }
 
-function SocialLink({ href, label, children, compact = false }: { href: string; label: string; children: React.ReactNode; compact?: boolean }) {
+function SocialLink({ href, label, children, small = false }: { href: string; label: string; children: React.ReactNode; small?: boolean }) {
   return (
     <a
       href={href}
@@ -405,7 +407,7 @@ function SocialLink({ href, label, children, compact = false }: { href: string; 
       rel="noreferrer"
       aria-label={label}
       title={label}
-      className={`flex items-center justify-center rounded-full border border-white/80 bg-white/55 text-slate-600 shadow-sm backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/85 hover:text-[var(--evergreen)] ${compact ? 'h-8 w-8' : 'h-10 w-10'}`}
+      className={`flex items-center justify-center rounded-full text-slate-600 transition hover:-translate-y-0.5 hover:text-[var(--evergreen)] ${small ? 'h-7 w-7 border border-slate-300/70 hover:border-[var(--evergreen)] [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:stroke-[1.5]' : 'h-10 w-10 border border-white/80 bg-white/55 shadow-sm backdrop-blur-xl hover:bg-white/85'}`}
     >
       {children}
     </a>
