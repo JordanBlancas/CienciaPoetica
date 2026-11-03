@@ -232,17 +232,16 @@ export default function Storefront() {
         )}
 
         <section className="relative isolate my-5 min-h-[430px] py-12 sm:my-8 sm:min-h-[500px] sm:py-14 md:my-12 md:min-h-[590px] md:py-20">
-          <div
-            aria-hidden="true"
-            className="ada-hero-portrait pointer-events-none absolute inset-y-0 opacity-40 sm:opacity-48 md:opacity-58"
-          >
-            <Image
-              src="/images/ada-lovelace.png"
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, 70vw"
-              className="object-contain object-right"
-            />
+          <div aria-hidden="true" className="ada-hero-bleed pointer-events-none absolute inset-y-0">
+            <div className="ada-portrait-frame opacity-45 md:opacity-55">
+              <Image
+                src="/images/ada-lovelace.png"
+                alt=""
+                fill
+                sizes="(max-width: 768px) 94vw, 36vw"
+                className="object-contain"
+              />
+            </div>
           </div>
           <p className="sr-only">Retrato de Ada Lovelace pintado por Margaret Sarah Carpenter en 1836. La obra es de dominio público.</p>
           <div className="relative z-10 max-w-2xl">

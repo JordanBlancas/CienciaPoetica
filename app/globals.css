@@ -50,18 +50,26 @@
     -webkit-backdrop-filter: blur(30px) saturate(165%);
   }
 
-  .ada-hero-portrait {
+  .ada-hero-bleed {
     left: 50%;
     width: 100vw;
     transform: translateX(-50%);
-    -webkit-mask-image: radial-gradient(ellipse 47% 54% at 52% 50%, #000 0%, rgba(0, 0, 0, 0.98) 48%, rgba(0, 0, 0, 0.68) 68%, rgba(0, 0, 0, 0.18) 86%, transparent 100%);
-    mask-image: radial-gradient(ellipse 47% 54% at 52% 50%, #000 0%, rgba(0, 0, 0, 0.98) 48%, rgba(0, 0, 0, 0.68) 68%, rgba(0, 0, 0, 0.18) 86%, transparent 100%);
+  }
+
+  .ada-portrait-frame {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: min(94vw, 28rem);
+    aspect-ratio: 0.78;
+    transform: translateY(-50%);
+    -webkit-mask-image: radial-gradient(ellipse 72% 54% at 50% 50%, #000 45%, rgba(0, 0, 0, 0.78) 65%, rgba(0, 0, 0, 0.26) 84%, transparent 100%);
+    mask-image: radial-gradient(ellipse 72% 54% at 50% 50%, #000 45%, rgba(0, 0, 0, 0.78) 65%, rgba(0, 0, 0, 0.26) 84%, transparent 100%);
   }
 
   @media (min-width: 768px) {
-    .ada-hero-portrait {
-      -webkit-mask-image: radial-gradient(ellipse 18% 55% at 82% 50%, #000 0%, rgba(0, 0, 0, 0.98) 48%, rgba(0, 0, 0, 0.68) 68%, rgba(0, 0, 0, 0.18) 86%, transparent 100%);
-      mask-image: radial-gradient(ellipse 18% 55% at 82% 50%, #000 0%, rgba(0, 0, 0, 0.98) 48%, rgba(0, 0, 0, 0.68) 68%, rgba(0, 0, 0, 0.18) 86%, transparent 100%);
+    .ada-portrait-frame {
+      width: min(36vw, 31rem);
     }
   }
 
