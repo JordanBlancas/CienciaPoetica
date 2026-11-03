@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import AuthShell from '@/components/AuthShell'
 import { supabase } from '@/lib/supabaseClient'
 import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react'
 
@@ -69,24 +70,24 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <AuthShell>
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        <h2 className="mt-6 text-center font-serif text-3xl font-semibold tracking-normal text-slate-900">
           Crear Cuenta
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
           ¿Ya tienes cuenta?{' '}
-          <Link href="/auth/login" className="font-medium text-primary-600 hover:text-primary-500">
+          <Link href="/auth/login" className="font-medium text-[var(--evergreen)] hover:text-[#285d58]">
             Inicia sesión aquí
           </Link>
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="glass-panel-strong rounded-3xl px-5 py-8 sm:px-8">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
+              <div role="alert" className="rounded-xl border border-rose-200/80 bg-rose-50/80 px-4 py-3 text-rose-700">
                 {error}
               </div>
             )}
@@ -107,7 +108,7 @@ export default function RegisterPage() {
                   required
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  className="block w-full rounded-xl border border-white/80 bg-white/65 py-3 pl-10 pr-3 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-emerald-700/40 focus:ring-4 focus:ring-emerald-700/10 sm:text-sm"
                   placeholder="Tu nombre completo"
                 />
               </div>
@@ -129,7 +130,7 @@ export default function RegisterPage() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  className="block w-full rounded-xl border border-white/80 bg-white/65 py-3 pl-10 pr-3 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-emerald-700/40 focus:ring-4 focus:ring-emerald-700/10 sm:text-sm"
                   placeholder="tu@email.com"
                 />
               </div>
@@ -144,7 +145,7 @@ export default function RegisterPage() {
                 name="role"
                 value={formData.role}
                 onChange={handleChange}
-                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
+                className="mt-1 block w-full rounded-xl border border-white/80 bg-white/65 py-3 pl-3 pr-10 text-base text-slate-900 shadow-sm outline-none focus:border-emerald-700/40 focus:ring-4 focus:ring-emerald-700/10 sm:text-sm"
               >
                 <option value="student">Estudiante</option>
                 <option value="instructor">Instructor</option>
@@ -167,7 +168,7 @@ export default function RegisterPage() {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="appearance-none block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  className="block w-full rounded-xl border border-white/80 bg-white/65 py-3 pl-10 pr-10 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-emerald-700/40 focus:ring-4 focus:ring-emerald-700/10 sm:text-sm"
                   placeholder="Mínimo 6 caracteres"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -202,7 +203,7 @@ export default function RegisterPage() {
                   required
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="appearance-none block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  className="block w-full rounded-xl border border-white/80 bg-white/65 py-3 pl-10 pr-10 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-emerald-700/40 focus:ring-4 focus:ring-emerald-700/10 sm:text-sm"
                   placeholder="Repite tu contraseña"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -225,7 +226,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group relative flex min-h-12 w-full items-center justify-center rounded-xl border border-white/20 bg-[var(--evergreen)] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-950/10 transition hover:bg-[#285d58] focus:outline-none focus:ring-4 focus:ring-emerald-700/15 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
               </button>
@@ -233,6 +234,6 @@ export default function RegisterPage() {
           </form>
         </div>
       </div>
-    </div>
+    </AuthShell>
   )
 }

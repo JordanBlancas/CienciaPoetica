@@ -33,7 +33,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="relative z-30 border-b border-emerald-950/10 bg-white/90 shadow-sm backdrop-blur-xl">
+    <nav className="relative z-30 border-b border-white/60 bg-white/55 shadow-[0_8px_28px_-20px_rgba(27,43,61,0.6)] backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
@@ -52,11 +52,8 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-5">
-            <Link href="/courses" className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-emerald-800">
-              Cursos
-            </Link>
-            <Link href="/#podcast" className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-emerald-800">
-              Podcast
+            <Link href="/" className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-emerald-800">
+              Explorar
             </Link>
             
             {user ? (
@@ -105,14 +102,11 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div id="primary-mobile-menu" className="absolute inset-x-0 top-full border-b border-emerald-950/10 bg-white/95 px-4 pb-4 shadow-xl backdrop-blur-xl md:hidden">
-            <div className="space-y-1 pt-3">
-              <Link href="/courses" onClick={() => setIsMenuOpen(false)} className="block rounded-md px-3 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50">
-                Cursos
-              </Link>
-              <Link href="/#podcast" onClick={() => setIsMenuOpen(false)} className="block rounded-md px-3 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50">
-                Podcast
-              </Link>
+            <div id="primary-mobile-menu" className="absolute inset-x-0 top-full border-b border-emerald-950/10 bg-white/95 px-4 pb-4 shadow-xl backdrop-blur-xl md:hidden">
+              <div className="space-y-1 pt-3">
+                <Link href="/" onClick={() => setIsMenuOpen(false)} className="block rounded-md px-3 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50">
+                  Explorar contenido
+                </Link>
               
               {user ? (
                 <>

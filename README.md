@@ -212,7 +212,9 @@ CREATE TRIGGER on_auth_user_created
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 ```
 
-  Para habilitar la administración de perfiles y las operaciones seguras de roles y usuarios, ejecuta también `supabase-admin-policies.sql` en el editor SQL de Supabase. Si el proyecto ya existe, ejecuta solo esa migración; también evita que el rol de administrador se asigne durante el registro público.
+Para habilitar la administración de perfiles y las operaciones seguras de roles y usuarios, ejecuta `supabase-admin-policies.sql` en el editor SQL de Supabase. Para los episodios, productos y pedidos, ejecuta también `supabase-storefront.sql`. En un proyecto existente basta con ejecutar ambas migraciones; no vuelvas a ejecutar el esquema base.
+
+Los cursos se crean desde el panel. Los videos, podcasts y productos se pueden registrar en las tablas `media_items` y `products` de Supabase. Solo los artículos marcados como publicados aparecen en la landing.
 
 ### 5. Ejecutar en Desarrollo
 
@@ -238,7 +240,15 @@ En el dashboard de Vercel, ve a Settings > Environment Variables y agrega:
 
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `NEXT_PUBLIC_BUILDER_API_KEY` (opcional)
+- `NEXT_PUBLIC_SITE_URL`
+- `STRIPE_SECRET_KEY`
+- `STRIPE_WEBHOOK_SECRET`
+- `SUPABASE_SERVICE_ROLE_KEY` (solo server-side; nunca debe llevar el prefijo `NEXT_PUBLIC_`)
+- `STRIPE_ALLOWED_SHIPPING_COUNTRIES` (códigos ISO separados por comas; por defecto `PE`)
+
+Para habilitar compras, crea un Price en Stripe por cada curso o producto y guarda su ID (`price_...`) en `stripe_price_id`, con el mismo importe y divisa que en Supabase. Configura un webhook en Stripe que apunte a `https://TU-DOMINIO/api/stripe/webhook` y suscríbelo al evento `checkout.session.completed`. Guarda el secreto de firma del endpoint como `STRIPE_WEBHOOK_SECRET`. El webhook concede acceso a los cursos solo después de confirmar el pago y registra los pedidos de tienda.
+
+Para los productos físicos, define en Stripe el coste del producto incluyendo el envío por ahora; Checkout recopila la dirección según `STRIPE_ALLOWED_SHIPPING_COUNTRIES`.
 
 ### 3. Desplegar
 

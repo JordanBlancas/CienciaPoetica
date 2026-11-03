@@ -19,6 +19,8 @@ CREATE TABLE public.courses (
   description TEXT,
   image_url TEXT,
   price DECIMAL(10,2) DEFAULT 0,
+  currency TEXT NOT NULL DEFAULT 'USD',
+  stripe_price_id TEXT UNIQUE,
   instructor_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   is_published BOOLEAN DEFAULT false,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),

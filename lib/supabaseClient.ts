@@ -12,6 +12,8 @@ export interface Course {
   description: string
   image_url?: string
   price: number
+  currency?: string
+  stripe_price_id?: string | null
   instructor_id: string
   created_at: string
   updated_at: string

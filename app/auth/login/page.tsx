@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import AuthShell from '@/components/AuthShell'
 import { supabase } from '@/lib/supabaseClient'
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
 
@@ -38,24 +39,24 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <AuthShell>
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        <h2 className="mt-6 text-center font-serif text-3xl font-semibold tracking-normal text-slate-900">
           Iniciar Sesión
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
           ¿No tienes cuenta?{' '}
-          <Link href="/auth/register" className="font-medium text-primary-600 hover:text-primary-500">
+          <Link href="/auth/register" className="font-medium text-[var(--evergreen)] hover:text-[#285d58]">
             Regístrate aquí
           </Link>
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="glass-panel-strong rounded-3xl px-5 py-8 sm:px-8">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
+              <div role="alert" className="rounded-xl border border-rose-200/80 bg-rose-50/80 px-4 py-3 text-rose-700">
                 {error}
               </div>
             )}
@@ -76,7 +77,7 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  className="block w-full rounded-xl border border-white/80 bg-white/65 py-3 pl-10 pr-3 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-emerald-700/40 focus:ring-4 focus:ring-emerald-700/10 sm:text-sm"
                   placeholder="tu@email.com"
                 />
               </div>
@@ -98,7 +99,7 @@ export default function LoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  className="block w-full rounded-xl border border-white/80 bg-white/65 py-3 pl-10 pr-10 text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-emerald-700/40 focus:ring-4 focus:ring-emerald-700/10 sm:text-sm"
                   placeholder="Tu contraseña"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -141,7 +142,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group relative flex min-h-12 w-full items-center justify-center rounded-xl border border-white/20 bg-[var(--evergreen)] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-950/10 transition hover:bg-[#285d58] focus:outline-none focus:ring-4 focus:ring-emerald-700/15 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
               </button>
@@ -149,6 +150,6 @@ export default function LoginPage() {
           </form>
         </div>
       </div>
-    </div>
+    </AuthShell>
   )
 }

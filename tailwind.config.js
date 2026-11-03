@@ -21,6 +21,10 @@ module.exports = {
           900: '#1e3a8a',
         },
       },
+      fontFamily: {
+        sans: ['var(--font-body)', 'sans-serif'],
+        serif: ['var(--font-display)', 'sans-serif'],
+      },
     },
   },
   plugins: [],

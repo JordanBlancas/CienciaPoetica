@@ -1,19 +1,20 @@
 'use client'
 
 import Link from 'next/link'
+import AuthShell from '@/components/AuthShell'
 import { Mail } from 'lucide-react'
 
 export default function VerifyEmailPage() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <AuthShell>
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="glass-panel-strong rounded-3xl px-5 py-8 sm:px-8">
           <div className="text-center">
-            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-primary-100">
-              <Mail className="h-6 w-6 text-primary-600" />
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-white/70 bg-white/65 text-[var(--evergreen)] shadow-sm">
+              <Mail className="h-6 w-6" />
             </div>
             
-            <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+            <h2 className="mt-6 font-serif text-3xl font-semibold tracking-normal text-slate-900">
               Verifica tu correo
             </h2>
             
@@ -25,7 +26,7 @@ export default function VerifyEmailPage() {
             <div className="mt-6">
               <Link
                 href="/auth/login"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                className="flex min-h-12 w-full items-center justify-center rounded-xl bg-[var(--evergreen)] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-950/10 transition hover:bg-[#285d58] focus:outline-none focus:ring-4 focus:ring-emerald-700/15"
               >
                 Volver al inicio de sesión
               </Link>
@@ -40,6 +41,6 @@ export default function VerifyEmailPage() {
           </div>
         </div>
       </div>
-    </div>
+    </AuthShell>
   )
 }

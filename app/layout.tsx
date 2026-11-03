@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { DM_Sans, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const bodyFont = DM_Sans({ subsets: ['latin'], variable: '--font-body' })
+const displayFont = Space_Grotesk({ subsets: ['latin'], variable: '--font-display' })
 
 export const metadata: Metadata = {
   title: 'Ciencia Poética | Matemáticas, ingeniería e imaginación',
@@ -16,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={inter.className}>
+      <body className={`${bodyFont.variable} ${displayFont.variable}`}>
         {children}
       </body>
     </html>
