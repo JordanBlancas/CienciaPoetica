@@ -55,9 +55,9 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
       <Sidebar userRole={userRole} />
-      <main className="flex-1 overflow-x-hidden">
+      <main className="min-w-0 flex-1 overflow-x-hidden">
         {children}
       </main>
     </div>

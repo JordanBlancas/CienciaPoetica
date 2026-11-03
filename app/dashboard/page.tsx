@@ -67,7 +67,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="p-8">
+      <div className="p-4 sm:p-6 lg:p-8">
         <div className="animate-pulse">
           <div className="h-8 bg-gray-300 rounded w-1/3 mb-8"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -82,9 +82,9 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="break-words text-2xl font-bold text-gray-900 mb-2 sm:text-3xl">
           ¡Hola, {user?.user_metadata?.full_name || user?.email}!
         </h1>
         <p className="text-gray-600">Bienvenido a tu panel de aprendizaje</p>

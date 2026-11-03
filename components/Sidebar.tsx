@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { 
@@ -10,7 +11,9 @@ import {
   BarChart3, 
   Plus,
   Users,
-  GraduationCap
+  GraduationCap,
+  Menu,
+  X
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -19,6 +22,7 @@ interface SidebarProps {
 
 export default function Sidebar({ userRole = 'student' }: SidebarProps) {
   const pathname = usePathname()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const studentMenu = [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
@@ -58,38 +62,75 @@ export default function Sidebar({ userRole = 'student' }: SidebarProps) {
   const menuItems = getMenuItems()
 
   return (
-    <div className="w-64 bg-white shadow-lg h-full">
-      <div className="p-6">
+    <>
+      <div className="flex w-full items-center justify-between border-b bg-white px-4 py-3 shadow-sm md:hidden">
         <h2 className="text-lg font-semibold text-gray-900">Panel de Control</h2>
+        <button
+          type="button"
+          onClick={() => setIsMobileMenuOpen(true)}
+          aria-label="Abrir navegación del panel"
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="dashboard-sidebar"
+          className="rounded-md p-2 text-gray-700 hover:bg-gray-100"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
       </div>
-      
-      <nav className="mt-6">
-        <div className="px-3 space-y-1">
-          {menuItems.map((item) => {
-            const Icon = item.icon
-            const isActive = pathname === item.href
-            
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
-                  isActive
-                    ? 'bg-primary-100 text-primary-700'
-                    : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                }`}
-              >
-                <Icon
-                  className={`mr-3 h-5 w-5 ${
-                    isActive ? 'text-primary-500' : 'text-gray-400 group-hover:text-gray-500'
-                  }`}
-                />
-                {item.name}
-              </Link>
-            )
-          })}
+
+      {isMobileMenuOpen && (
+        <button
+          type="button"
+          onClick={() => setIsMobileMenuOpen(false)}
+          aria-label="Cerrar navegación del panel"
+          className="fixed inset-0 z-40 bg-black/40 md:hidden"
+        />
+      )}
+
+      <aside
+        id="dashboard-sidebar"
+        className={`${isMobileMenuOpen ? 'block' : 'hidden'} fixed inset-y-0 left-0 z-50 w-64 overflow-y-auto bg-white shadow-lg md:sticky md:top-0 md:block md:h-screen md:shrink-0`}
+      >
+        <div className="flex items-center justify-between p-6">
+          <h2 className="text-lg font-semibold text-gray-900">Panel de Control</h2>
+          <button
+            type="button"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-label="Cerrar navegación del panel"
+            className="rounded-md p-2 text-gray-700 hover:bg-gray-100 md:hidden"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
-      </nav>
-    </div>
+
+        <nav className="mt-2 pb-6">
+          <div className="space-y-1 px-3">
+            {menuItems.map((item) => {
+              const Icon = item.icon
+              const isActive = pathname === item.href
+
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                    isActive
+                      ? 'bg-primary-100 text-primary-700'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                  }`}
+                >
+                  <Icon
+                    className={`mr-3 h-5 w-5 ${
+                      isActive ? 'text-primary-500' : 'text-gray-400 group-hover:text-gray-500'
+                    }`}
+                  />
+                  {item.name}
+                </Link>
+              )
+            })}
+          </div>
+        </nav>
+      </aside>
+    </>
   )
 }
