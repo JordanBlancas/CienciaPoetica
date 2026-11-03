@@ -77,11 +77,10 @@ export default function Storefront() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    if (!activeSection) return
+    if (!selectedItem) return
 
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setActiveSection(null)
         setSelectedItem(null)
       }
     }
@@ -92,7 +91,7 @@ export default function Storefront() {
       document.body.style.overflow = ''
       window.removeEventListener('keydown', closeOnEscape)
     }
-  }, [activeSection])
+  }, [selectedItem])
 
   useEffect(() => {
     if (!activeSection) return
@@ -187,23 +186,54 @@ export default function Storefront() {
       <Navbar />
 
       <main className="relative mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-10">
-        <section className="grid items-center gap-5 py-5 sm:gap-8 md:min-h-[420px] md:grid-cols-[1.05fr_0.95fr] md:py-8">
+        <section className="pt-6 sm:pt-8">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--evergreen)] sm:text-sm">Matemáticas · Ingeniería · Imaginación</p>
+          <div aria-label="Explora Ciencia Poética" className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
+            {sections.map(({ key, title, icon: Icon, tint }) => (
+              <button
+                key={key}
+                type="button"
+                aria-pressed={activeSection === key}
+                onClick={() => {
+                  setSelectedItem(null)
+                  setActiveSection(activeSection === key ? null : key)
+                }}
+                className={`group glass-panel flex min-h-12 items-center gap-2 rounded-xl bg-gradient-to-br ${tint} px-3 py-2 text-left transition hover:-translate-y-0.5 hover:bg-white/85 focus:outline-none focus:ring-4 focus:ring-emerald-700/15 sm:min-h-14 sm:justify-center sm:px-4 ${activeSection === key ? 'ring-2 ring-emerald-700/35' : ''}`}
+              >
+                <Icon className="h-4 w-4 shrink-0 text-[var(--evergreen)]" strokeWidth={1.9} />
+                <span className="text-xs font-semibold text-slate-700 sm:text-sm">{title}</span>
+                <ArrowRight className="ml-auto h-3.5 w-3.5 shrink-0 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-[var(--evergreen)] sm:hidden" />
+              </button>
+            ))}
+          </div>
+        </section>
+
+        {active && (
+          <section aria-labelledby="collection-title" className="mt-5 scroll-mt-24 rounded-2xl border border-white/75 bg-white/35 p-4 shadow-[0_20px_55px_-42px_rgba(27,43,61,0.55)] backdrop-blur-xl sm:mt-6 sm:p-6">
+            <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <h2 id="collection-title" className="font-serif text-2xl font-semibold tracking-normal text-slate-800">{active.title}</h2>
+                <p className="mt-1 text-sm text-slate-600">{active.description}</p>
+              </div>
+              <button type="button" onClick={closeSection} className="rounded-full px-3 py-2 text-xs font-medium text-slate-600 transition hover:bg-white/70 hover:text-slate-900">Cerrar sección</button>
+            </div>
+            {loading ? (
+              <div className="grid gap-3 md:grid-cols-2"><div className="h-28 animate-pulse rounded-xl bg-white/60" /><div className="h-28 animate-pulse rounded-xl bg-white/60" /></div>
+            ) : message ? (
+              <p role="alert" className="rounded-xl border border-rose-200 bg-rose-50/80 p-4 text-sm text-rose-700">{message}</p>
+            ) : (
+              <InlineItemGrid
+                items={activeSection === 'courses' ? courses : activeSection === 'store' ? products : media}
+                empty={activeSection === 'courses' ? 'Los cursos aparecerán aquí cuando estén publicados.' : activeSection === 'videos' ? 'Los videos y noticias aparecerán aquí cuando haya contenido publicado.' : activeSection === 'podcast' ? 'Las primeras conversaciones aparecerán aquí cuando se publique un episodio.' : 'La primera colección de tazas, polos y objetos de Ciencia Poética está en preparación.'}
+                onSelect={setSelectedItem}
+                type={activeSection === 'courses' ? 'course' : activeSection === 'store' ? 'product' : 'media'}
+              />
+            )}
+          </section>
+        )}
+
+        <section className="grid items-center gap-6 py-10 sm:gap-8 sm:py-14 md:grid-cols-[1.05fr_0.95fr] md:py-20">
           <div className="relative z-[1] max-w-2xl">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--evergreen)] sm:text-sm">Matemáticas · Ingeniería · Imaginación</p>
-            <section aria-label="Explora Ciencia Poética" className="mb-5 grid grid-cols-2 gap-2 sm:mb-6 sm:grid-cols-4 sm:gap-2.5">
-              {sections.map(({ key, title, icon: Icon }) => (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => setActiveSection(key)}
-                  className="group glass-panel flex min-h-11 items-center gap-2 rounded-xl px-2.5 py-2 text-left transition hover:-translate-y-0.5 hover:bg-white/85 focus:outline-none focus:ring-4 focus:ring-emerald-700/15 sm:justify-center sm:px-2"
-                >
-                  <Icon className="h-4 w-4 shrink-0 text-[var(--evergreen)]" strokeWidth={1.9} />
-                  <span className="text-xs font-semibold text-slate-700 sm:text-sm">{title}</span>
-                  <ArrowRight className="ml-auto h-3.5 w-3.5 shrink-0 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-[var(--evergreen)] sm:hidden" />
-                </button>
-              ))}
-            </section>
             <h1 className="max-w-[12ch] font-serif text-[2.8rem] font-medium leading-[0.98] tracking-normal text-[#17212b] sm:text-6xl md:text-7xl">Ciencia <span className="italic text-[var(--evergreen)]">Poética</span></h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8">
               Ciencia y matemáticas como formas de expresión. Un lugar para aprender, escuchar ideas y llevar la curiosidad a la vida diaria.
@@ -219,29 +249,36 @@ export default function Storefront() {
           </figure>
         </section>
 
+        <section className="grid gap-3 border-t border-slate-300/55 py-8 sm:grid-cols-[0.7fr_1.3fr] sm:gap-8 sm:py-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--evergreen)]">Quién está detrás</p>
+            <h2 className="mt-2 font-serif text-2xl font-semibold tracking-normal text-slate-800">Jordan Blancas</h2>
+          </div>
+          <p className="max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+            Soy el creador de Ciencia Poética. Este espacio reúne mi interés por las matemáticas y la ingeniería, y la convicción de que el conocimiento también puede ser una forma de expresión y belleza.
+          </p>
+        </section>
+
       </main>
 
-      {active && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/35 p-3 backdrop-blur-md sm:p-6" onMouseDown={(event) => { if (event.target === event.currentTarget) closeSection() }}>
+      {active && selectedItem && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/35 p-3 backdrop-blur-md sm:p-6" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedItem(null) }}>
           <section role="dialog" aria-modal="true" aria-labelledby="section-dialog-title" className="glass-panel-strong flex max-h-[calc(100dvh-1.5rem)] w-full max-w-4xl flex-col overflow-hidden rounded-[1.75rem] sm:max-h-[calc(100dvh-3rem)]">
             <header className="flex items-center justify-between border-b border-white/70 px-4 py-4 sm:px-6">
               <div className="flex min-w-0 items-center gap-3">
-                {selectedItem && <button type="button" onClick={() => { setSelectedItem(null); setMessage('') }} aria-label="Volver al listado" className="rounded-full p-2 text-slate-600 hover:bg-white/70">←</button>}
+                <button type="button" onClick={() => { setSelectedItem(null); setMessage('') }} aria-label="Volver al listado" className="rounded-full p-2 text-slate-600 hover:bg-white/70">←</button>
                 <div className="min-w-0">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--evergreen)]">Ciencia Poética</p>
                   <h2 id="section-dialog-title" className="truncate font-serif text-xl font-semibold tracking-normal text-slate-900 sm:text-2xl">{selectedItem ? selectedItem.title : active.title}</h2>
                 </div>
               </div>
-              <button type="button" onClick={closeSection} aria-label="Cerrar ventana" className="ml-3 rounded-full border border-white/80 bg-white/70 p-2 text-slate-600 shadow-sm transition hover:bg-white">
+              <button type="button" onClick={() => setSelectedItem(null)} aria-label="Cerrar ventana" className="ml-3 rounded-full border border-white/80 bg-white/70 p-2 text-slate-600 shadow-sm transition hover:bg-white">
                 <X className="h-5 w-5" />
               </button>
             </header>
 
             <div className="overflow-y-auto p-4 sm:p-6">
-              {loading ? (
-                <div className="grid gap-3 sm:grid-cols-2"><div className="h-36 animate-pulse rounded-2xl bg-white/65" /><div className="h-36 animate-pulse rounded-2xl bg-white/65" /></div>
-              ) : selectedItem ? (
-                <div className="grid gap-5 md:grid-cols-[1fr_0.9fr] md:items-start">
+              <div className="grid gap-5 md:grid-cols-[1fr_0.9fr] md:items-start">
                   <div className="overflow-hidden rounded-2xl border border-white/80 bg-white/55">
                     {selectedMedia && youtubeEmbedUrl(selectedMedia.youtube_url) ? (
                       <div className="aspect-video"><iframe src={youtubeEmbedUrl(selectedMedia.youtube_url) || undefined} title={selectedMedia.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="h-full w-full" /></div>
@@ -266,15 +303,7 @@ export default function Storefront() {
                     {selectedProduct && <button type="button" disabled={busy || !selectedProduct.stripe_price_id} onClick={() => startCheckout('product', selectedProduct.id)} className="mt-5 min-h-11 w-full rounded-full bg-[var(--evergreen)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#285d58] disabled:cursor-not-allowed disabled:opacity-50">{busy ? 'Abriendo Stripe…' : selectedProduct.stripe_price_id ? 'Comprar con Stripe' : 'Disponible próximamente'}</button>}
                     {message && <p role="status" className="mt-4 rounded-xl border border-white/80 bg-white/70 p-3 text-sm leading-5 text-slate-700">{message}</p>}
                   </div>
-                </div>
-              ) : (
-                <>
-                  {message && <p role="alert" className="mb-4 rounded-xl border border-rose-200 bg-rose-50/80 p-3 text-sm text-rose-700">{message}</p>}
-                  {activeSection === 'courses' && <ItemGrid items={courses} empty="Los cursos aparecerán aquí cuando estén publicados." onSelect={setSelectedItem} type="course" />}
-                  {(activeSection === 'videos' || activeSection === 'podcast') && <ItemGrid items={media} empty={activeSection === 'videos' ? 'Los videos y noticias aparecerán aquí cuando haya contenido publicado.' : 'Las primeras conversaciones aparecerán aquí cuando se publique un episodio.'} onSelect={setSelectedItem} type="media" />}
-                  {activeSection === 'store' && <ItemGrid items={products} empty="La primera colección de tazas, polos y objetos de Ciencia Poética está en preparación." onSelect={setSelectedItem} type="product" />}
-                </>
-              )}
+              </div>
             </div>
           </section>
         </div>
@@ -283,24 +312,30 @@ export default function Storefront() {
   )
 }
 
-function ItemGrid({ items, empty, onSelect, type }: { items: SelectedItem[]; empty: string; onSelect: (item: SelectedItem) => void; type: 'course' | 'media' | 'product' }) {
-  if (items.length === 0) return <p className="rounded-2xl border border-white/75 bg-white/50 px-5 py-10 text-center text-sm text-slate-600">{empty}</p>
+function InlineItemGrid({ items, empty, onSelect, type }: { items: SelectedItem[]; empty: string; onSelect: (item: SelectedItem) => void; type: 'course' | 'media' | 'product' }) {
+  if (items.length === 0) return <p className="rounded-xl border border-white/75 bg-white/48 px-5 py-8 text-center text-sm text-slate-600">{empty}</p>
 
   return (
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-3 md:grid-cols-2">
       {items.map((item) => {
         const product = isProduct(item) ? item : null
         const course = type === 'course' ? item as Course : null
+        const mediaItem = isMediaItem(item) ? item : null
         const image = 'image_url' in item ? item.image_url : null
-        const price = course ? formatPrice(course.price, 'USD') : product ? formatPrice(product.price, product.currency) : null
+        const price = course ? formatPrice(course.price, course.currency || 'USD') : product ? formatPrice(product.price, product.currency) : null
         return (
-          <button key={item.id} type="button" onClick={() => onSelect(item)} className="group overflow-hidden rounded-2xl border border-white/80 bg-white/62 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-emerald-700/15">
-            <div className="relative aspect-[16/10] bg-gradient-to-br from-cyan-100/80 via-white/50 to-rose-100/70">
-              {image ? <img src={image} alt={item.title} className="h-full w-full object-cover" /> : <div className="flex h-full items-center justify-center text-[var(--evergreen)]/55">{type === 'course' ? <GraduationCap className="h-9 w-9" /> : type === 'product' ? <ShoppingBag className="h-9 w-9" /> : <Clapperboard className="h-9 w-9" />}</div>}
+          <button key={item.id} type="button" onClick={() => onSelect(item)} className="group flex min-h-28 w-full items-stretch overflow-hidden rounded-xl border border-white/80 bg-white/60 text-left shadow-sm transition hover:-translate-y-0.5 hover:bg-white/80 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-emerald-700/15">
+            <div className="relative min-h-28 w-28 shrink-0 bg-gradient-to-br from-cyan-100/80 via-white/55 to-rose-100/70 sm:w-40">
+              {image ? <img src={image} alt={item.title} className="absolute inset-0 h-full w-full object-cover" /> : <div className="flex h-full items-center justify-center text-[var(--evergreen)]/55">{type === 'course' ? <GraduationCap className="h-8 w-8" /> : type === 'product' ? <ShoppingBag className="h-8 w-8" /> : <Clapperboard className="h-8 w-8" />}</div>}
             </div>
-            <span className="flex items-start justify-between gap-3 p-4">
-              <span className="min-w-0"><span className="block line-clamp-2 font-serif text-lg font-semibold text-slate-800">{item.title}</span>{price && <span className="mt-2 block text-sm font-semibold text-[var(--evergreen)]">{price}</span>}</span>
-              <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-slate-400 transition group-hover:translate-x-1 group-hover:text-[var(--evergreen)]" />
+            <span className="flex min-w-0 flex-1 items-center justify-between gap-3 p-3 sm:p-4">
+              <span className="min-w-0">
+                <span className="block line-clamp-2 font-serif text-base font-semibold leading-snug text-slate-800 sm:text-lg">{item.title}</span>
+                {item.description && <span className="mt-1 block line-clamp-2 text-xs leading-5 text-slate-500 sm:text-sm">{item.description}</span>}
+                {price && <span className="mt-2 block text-sm font-semibold text-[var(--evergreen)]">{price}</span>}
+                {mediaItem && <span className="mt-2 block text-xs font-medium text-[var(--evergreen)]">{mediaItem.media_type === 'podcast' ? 'Escuchar conversación' : 'Ver video'}</span>}
+              </span>
+              <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:translate-x-1 group-hover:text-[var(--evergreen)]" />
             </span>
           </button>
         )
