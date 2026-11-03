@@ -231,21 +231,21 @@ export default function Storefront() {
           </section>
         )}
 
-        <section className="relative isolate my-6 overflow-hidden py-10 sm:my-10 sm:py-14 md:my-14 md:min-h-[440px] md:py-20">
+        <section className="relative isolate my-5 min-h-[430px] overflow-hidden py-12 sm:my-8 sm:min-h-[500px] sm:py-14 md:my-12 md:min-h-[590px] md:py-20">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-20 top-1/2 h-[112%] w-[94%] -translate-y-1/2 opacity-35 sm:right-[-8%] sm:w-[76%] sm:opacity-45 md:right-[-2%] md:h-[132%] md:w-[58%] md:opacity-60"
+            className="pointer-events-none absolute inset-y-0 -right-[12%] w-[112%] opacity-40 sm:right-[-8%] sm:w-[88%] sm:opacity-48 md:right-0 md:w-[70%] md:opacity-58"
             style={{
-              maskImage: 'radial-gradient(ellipse at 58% 46%, #000 24%, rgba(0,0,0,.86) 44%, rgba(0,0,0,.48) 61%, transparent 80%)',
-              WebkitMaskImage: 'radial-gradient(ellipse at 58% 46%, #000 24%, rgba(0,0,0,.86) 44%, rgba(0,0,0,.48) 61%, transparent 80%)',
+              maskImage: 'radial-gradient(ellipse 44% 70% at 76% 50%, #000 12%, rgba(0,0,0,.88) 43%, rgba(0,0,0,.42) 72%, transparent 100%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 44% 70% at 76% 50%, #000 12%, rgba(0,0,0,.88) 43%, rgba(0,0,0,.42) 72%, transparent 100%)',
             }}
           >
             <Image
               src="/images/ada-lovelace.png"
               alt=""
               fill
-              sizes="(max-width: 768px) 90vw, 58vw"
-              className="object-cover object-[50%_25%]"
+              sizes="(max-width: 768px) 100vw, 70vw"
+              className="object-contain object-right"
             />
           </div>
           <p className="sr-only">Retrato de Ada Lovelace pintado por Margaret Sarah Carpenter en 1836. La obra es de dominio público.</p>
