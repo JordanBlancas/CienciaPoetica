@@ -236,8 +236,8 @@ export default function Storefront() {
             aria-hidden="true"
             className="pointer-events-none absolute inset-y-0 -right-[12%] w-[112%] opacity-40 sm:right-[-8%] sm:w-[88%] sm:opacity-48 md:right-0 md:w-[70%] md:opacity-58"
             style={{
-              maskImage: 'radial-gradient(ellipse 44% 70% at 76% 50%, #000 12%, rgba(0,0,0,.88) 43%, rgba(0,0,0,.42) 72%, transparent 100%)',
-              WebkitMaskImage: 'radial-gradient(ellipse 44% 70% at 76% 50%, #000 12%, rgba(0,0,0,.88) 43%, rgba(0,0,0,.42) 72%, transparent 100%)',
+              maskImage: 'radial-gradient(ellipse 36% 58% at 70% 50%, #000 12%, rgba(0,0,0,.92) 42%, rgba(0,0,0,.48) 66%, transparent 88%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 36% 58% at 70% 50%, #000 12%, rgba(0,0,0,.92) 42%, rgba(0,0,0,.48) 66%, transparent 88%)',
             }}
           >
             <Image
