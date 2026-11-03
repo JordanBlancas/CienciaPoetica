@@ -231,14 +231,10 @@ export default function Storefront() {
           </section>
         )}
 
-        <section className="relative isolate my-5 min-h-[430px] overflow-hidden py-12 sm:my-8 sm:min-h-[500px] sm:py-14 md:my-12 md:min-h-[590px] md:py-20">
+        <section className="relative isolate my-5 min-h-[430px] py-12 sm:my-8 sm:min-h-[500px] sm:py-14 md:my-12 md:min-h-[590px] md:py-20">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 -right-[12%] w-[112%] opacity-40 sm:right-[-8%] sm:w-[88%] sm:opacity-48 md:right-0 md:w-[70%] md:opacity-58"
-            style={{
-              maskImage: 'radial-gradient(ellipse 36% 58% at 70% 50%, #000 12%, rgba(0,0,0,.92) 42%, rgba(0,0,0,.48) 66%, transparent 88%)',
-              WebkitMaskImage: 'radial-gradient(ellipse 36% 58% at 70% 50%, #000 12%, rgba(0,0,0,.92) 42%, rgba(0,0,0,.48) 66%, transparent 88%)',
-            }}
+            className="ada-hero-portrait pointer-events-none absolute inset-y-0 opacity-40 sm:opacity-48 md:opacity-58"
           >
             <Image
               src="/images/ada-lovelace.png"
