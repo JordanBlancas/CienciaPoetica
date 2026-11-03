@@ -265,43 +265,46 @@ export default function Storefront() {
           </div>
         </section>
 
-        <section className="grid gap-3 border-t border-slate-300/55 py-5 sm:py-6 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-5">
+        <section className="glass-panel grid gap-4 rounded-2xl p-4 sm:p-5 md:grid-cols-[auto_1fr] md:items-center md:gap-x-5 md:gap-y-4">
           <div className="flex items-center gap-3">
             <Image
               src="/images/jordan-blancas.jpg"
               alt="Jordan Blancas"
-              width={56}
-              height={56}
-              className="h-12 w-12 shrink-0 rounded-full border border-white/85 object-cover shadow-[0_12px_30px_-18px_rgba(27,43,61,0.55)] sm:h-14 sm:w-14"
+              width={52}
+              height={52}
+              className="h-11 w-11 shrink-0 rounded-full border border-white/85 object-cover shadow-[0_12px_30px_-18px_rgba(27,43,61,0.55)] sm:h-12 sm:w-12"
             />
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[var(--evergreen)]">Sobre el autor</p>
-              <h2 className="mt-0.5 font-serif text-lg font-semibold tracking-normal text-slate-800 sm:text-xl">Jordan Blancas</h2>
+              <h2 className="mt-0.5 font-serif text-base font-semibold tracking-normal text-slate-800 sm:text-lg">Jordan Blancas</h2>
             </div>
           </div>
-          <p className="max-w-2xl text-xs leading-6 text-slate-600 sm:text-sm">
-            Soy ingeniero y docente universitario. Me interesa explorar cómo dialogan las matemáticas, la ciencia, la tecnología y la ingeniería con la creatividad. En Ciencia Poética comparto esa búsqueda mediante cursos, conversaciones y proyectos.
+          <p className="max-w-2xl text-xs leading-5 text-slate-600 sm:text-sm sm:leading-6">
+            Ingeniero y docente universitario. Me interesa explorar cómo dialogan las matemáticas, la ciencia, la tecnología y la ingeniería con la creatividad. En Ciencia Poética comparto esa búsqueda mediante cursos, conversarios y proyectos.
           </p>
-          <nav aria-label="Redes sociales de Jordan Blancas" className="flex flex-wrap gap-2 md:justify-end">
-            <SocialLink compact href="https://www.facebook.com/jordanblancas" label="Facebook"><Facebook /></SocialLink>
-            <SocialLink compact href="https://www.instagram.com/jordanblancas" label="Instagram"><Instagram /></SocialLink>
-            <SocialLink compact href="https://pe.linkedin.com/in/jordanblancas" label="LinkedIn"><Linkedin /></SocialLink>
-            <SocialLink compact href="https://jordanblancas.com" label="Sitio web"><Globe2 /></SocialLink>
-            <SocialLink compact href="https://polimatas.club/jordanblancas" label="Polímatas Club"><Brain /></SocialLink>
-            <SocialLink compact href="https://github.com/JordanBlancas" label="GitHub"><Github /></SocialLink>
-            <SocialLink compact href="https://x.com/jordanblancas" label="X"><XBrand /></SocialLink>
-            <SocialLink compact href="https://www.tiktok.com/@jordan.blancas" label="TikTok"><Music2 /></SocialLink>
-          </nav>
+          <div className="flex flex-col gap-2 border-t border-slate-300/35 pt-3 sm:flex-row sm:items-center sm:justify-between md:col-span-2">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-slate-500">Perfiles de Jordan</p>
+            <nav aria-label="Redes sociales de Jordan Blancas" className="flex flex-wrap gap-2">
+              <SocialLink compact href="https://www.facebook.com/jordanblancas" label="Facebook"><Facebook /></SocialLink>
+              <SocialLink compact href="https://www.instagram.com/jordanblancas" label="Instagram"><Instagram /></SocialLink>
+              <SocialLink compact href="https://pe.linkedin.com/in/jordanblancas" label="LinkedIn"><Linkedin /></SocialLink>
+              <SocialLink compact href="https://jordanblancas.com" label="Sitio web"><Globe2 /></SocialLink>
+              <SocialLink compact href="https://polimatas.club/jordanblancas" label="Polímatas Club"><Brain /></SocialLink>
+              <SocialLink compact href="https://github.com/JordanBlancas" label="GitHub"><Github /></SocialLink>
+              <SocialLink compact href="https://x.com/jordanblancas" label="X"><XBrand /></SocialLink>
+              <SocialLink compact href="https://www.tiktok.com/@jordan.blancas" label="TikTok"><Music2 /></SocialLink>
+            </nav>
+          </div>
         </section>
 
-        <footer className="border-t border-slate-300/55 py-6 text-center sm:py-8">
-          <div className="flex flex-col items-center gap-4 text-center">
-            <p className="font-serif text-lg font-semibold text-slate-800">Ciencia Poética</p>
+        <footer className="mt-10 border-t border-slate-300/55 py-6 sm:mt-12 sm:py-8">
+          <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-center">
+            <div>
+              <p className="font-serif text-base font-semibold text-slate-800">Ciencia Poética</p>
+              <p className="mt-1 text-[11px] text-slate-500">Canales oficiales del proyecto</p>
+            </div>
             <nav aria-label="Redes sociales de Ciencia Poética" className="flex flex-wrap justify-center gap-2">
-              <SocialLink href="https://www.facebook.com/jordanblancas" label="Facebook de Ciencia Poética"><Facebook /></SocialLink>
-              <SocialLink href="https://www.instagram.com/jordanblancas" label="Instagram de Ciencia Poética"><Instagram /></SocialLink>
               <SocialLink href="https://www.youtube.com/@cienciapoetica" label="YouTube de Ciencia Poética"><Youtube /></SocialLink>
-              <SocialLink href="https://www.tiktok.com/@jordan.blancas" label="TikTok de Ciencia Poética"><Music2 /></SocialLink>
             </nav>
           </div>
           <div className="mt-5 flex flex-col items-center gap-1 border-t border-slate-300/40 pt-4 text-center text-[11px] leading-5 text-slate-500">
