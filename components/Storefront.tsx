@@ -187,7 +187,7 @@ export default function Storefront() {
 
       <main className="relative mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-10">
         <section className="pt-6 sm:pt-8">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--evergreen)] sm:text-sm">Matemáticas · Ingeniería · Imaginación</p>
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--evergreen)] sm:text-sm">Matemáticas · Ciencia · Tecnología · Ingeniería</p>
           <div aria-label="Explora Ciencia Poética" className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
             {sections.map(({ key, title, icon: Icon, tint }) => (
               <button
@@ -248,21 +248,27 @@ export default function Storefront() {
           </figure>
         </section>
 
-        <section className="grid gap-5 border-t border-slate-300/55 py-8 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-6 sm:py-10">
-          <div aria-label="Retrato pendiente de Jordan Blancas" className="flex h-16 w-16 items-center justify-center rounded-full border border-white/80 bg-gradient-to-br from-cyan-100 via-white/75 to-rose-100 text-lg font-semibold text-[var(--evergreen)] shadow-[0_12px_30px_-18px_rgba(27,43,61,0.55)] backdrop-blur-xl">
-            JB
+        <section className="grid gap-5 border-t border-slate-300/55 py-8 sm:py-10 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-7">
+          <div className="flex items-center gap-4">
+            <Image
+              src="/images/jordan-blancas.jpg"
+              alt="Jordan Blancas"
+              width={72}
+              height={72}
+              className="h-16 w-16 shrink-0 rounded-full border border-white/85 object-cover shadow-[0_12px_30px_-18px_rgba(27,43,61,0.55)] sm:h-[4.5rem] sm:w-[4.5rem]"
+            />
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--evergreen)]">El encuentro entre rigor e imaginación</p>
+              <h2 className="mt-1 font-serif text-xl font-semibold tracking-normal text-slate-800 sm:text-2xl">Jordan Blancas</h2>
+            </div>
           </div>
-          <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--evergreen)]">La curiosidad también tiene autor</p>
-            <h2 className="mt-1 font-serif text-2xl font-semibold tracking-normal text-slate-800">Jordan Blancas</h2>
-            <p className="mt-2 text-sm leading-7 text-slate-600 sm:text-base">
-              Mi formación en matemáticas e ingeniería me lleva a buscar conexiones entre el rigor y la imaginación. Ciencia Poética es el espacio donde quiero convertir esas conexiones en cursos, conversaciones e ideas que inviten a seguir preguntando.
-            </p>
-          </div>
-          <nav aria-label="Redes sociales de Jordan Blancas" className="flex flex-wrap gap-2 sm:justify-end">
+          <p className="max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+            Mi formación en matemáticas e ingeniería me enseñó a buscar patrones, hacer preguntas y conectar ideas. En Ciencia Poética comparto ese recorrido mediante cursos, conversaciones y proyectos donde el rigor también deja espacio a la imaginación.
+          </p>
+          <nav aria-label="Redes sociales de Jordan Blancas" className="flex flex-wrap gap-2 md:justify-end">
             <SocialLink href="https://www.facebook.com/jordanblancas" label="Facebook"><Facebook /></SocialLink>
             <SocialLink href="https://www.instagram.com/jordanblancas" label="Instagram"><Instagram /></SocialLink>
-            <SocialLink href="https://www.linkedin.com/in/jordanblancas/" label="LinkedIn"><Linkedin /></SocialLink>
+            <SocialLink href="https://pe.linkedin.com/in/jordanblancas" label="LinkedIn"><Linkedin /></SocialLink>
             <SocialLink href="https://jordanblancas.com" label="Sitio web"><Globe2 /></SocialLink>
             <SocialLink href="https://polimatas.club/jordanblancas" label="Polímatas Club"><Brain /></SocialLink>
           </nav>
